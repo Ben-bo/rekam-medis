@@ -10,7 +10,7 @@ class Rekam_medis_model extends Model
     protected $table      = 'rekam_medis';
     protected $primaryKey = 'id';
 
-    protected $allowedFields = ['no_rekam_medis', 'id_pasien', 'keluhan', 'anamnese/diagnosa', 'id_dokter', 'id_obat'];
+    protected $allowedFields = ['no_rekam_medis', 'id_pasien', 'keluhan', 'anamnese/diagnosa', 'id_poli', 'id_dokter', 'id_obat'];
 
     protected $useTimestamps = true;
     protected $createdField  = 'created_at_rm';
@@ -23,12 +23,14 @@ class Rekam_medis_model extends Model
                 ->join('pasien', 'pasien.id_pasien=rekam_medis.id_pasien')
                 ->join('dokter', 'dokter.id_dokter=rekam_medis.id_dokter')
                 ->join('obat', 'obat.id_obat=rekam_medis.id_obat')
+                ->join('poli', 'poli.id_poli=rekam_medis.id_poli')
                 ->get()->getResultArray();
         }
         return $this
             ->join('pasien', 'pasien.id_pasien=rekam_medis.id_pasien')
             ->join('dokter', 'dokter.id_dokter=rekam_medis.id_dokter')
             ->join('obat', 'obat.id_obat=rekam_medis.id_obat')
+            ->join('poli', 'poli.id_poli=rekam_medis.id_poli')
             ->where(['id' => $id])->first();
     }
     public function getDataRM($id_pasien = false)
@@ -38,12 +40,14 @@ class Rekam_medis_model extends Model
                 ->join('pasien', 'pasien.id_pasien=rekam_medis.id_pasien')
                 ->join('dokter', 'dokter.id_dokter=rekam_medis.id_dokter')
                 ->join('obat', 'obat.id_obat=rekam_medis.id_obat')
+                ->join('poli', 'poli.id_poli=rekam_medis.id_poli')
                 ->get()->getResultArray();
         }
         return $this->db->table('rekam_medis')
             ->join('pasien', 'pasien.id_pasien=rekam_medis.id_pasien')
             ->join('dokter', 'dokter.id_dokter=rekam_medis.id_dokter')
             ->join('obat', 'obat.id_obat=rekam_medis.id_obat')
+            ->join('poli', 'poli.id_poli=rekam_medis.id_poli')
             ->where(['pasien.id_pasien' => $id_pasien])->get()->getResultArray();
     }
     public function getDataRMf($id_pasien = false)
@@ -53,12 +57,14 @@ class Rekam_medis_model extends Model
                 ->join('pasien', 'pasien.id_pasien=rekam_medis.id_pasien')
                 ->join('dokter', 'dokter.id_dokter=rekam_medis.id_dokter')
                 ->join('obat', 'obat.id_obat=rekam_medis.id_obat')
+                ->join('poli', 'poli.id_poli=rekam_medis.id_poli')
                 ->get()->getResultArray();
         }
         return $this
             ->join('pasien', 'pasien.id_pasien=rekam_medis.id_pasien')
             ->join('dokter', 'dokter.id_dokter=rekam_medis.id_dokter')
             ->join('obat', 'obat.id_obat=rekam_medis.id_obat')
+            ->join('poli', 'poli.id_poli=rekam_medis.id_poli')
             ->where(['pasien.nama_pasien' => $id_pasien])->first();
     }
 
@@ -110,6 +116,7 @@ class Rekam_medis_model extends Model
             ->join('pasien', 'pasien.id_pasien=rekam_medis.id_pasien')
             ->join('dokter', 'dokter.id_dokter=rekam_medis.id_dokter')
             ->join('obat', 'obat.id_obat=rekam_medis.id_obat')
+            ->join('poli', 'poli.id_poli=rekam_medis.id_poli')
             ->where('YEAR(rekam_medis.created_at)', $tahun)->where('MONTH(rekam_medis.created_at)', $bulan)->get()->getResultArray();
     }
     public function getDataCetak($no_rekam_medis)
@@ -118,6 +125,7 @@ class Rekam_medis_model extends Model
             ->join('pasien', 'pasien.id_pasien=rekam_medis.id_pasien')
             ->join('dokter', 'dokter.id_dokter=rekam_medis.id_dokter')
             ->join('obat', 'obat.id_obat=rekam_medis.id_obat')
+            ->join('poli', 'poli.id_poli=rekam_medis.id_poli')
             ->where(['no_rekam_medis' => $no_rekam_medis])->first();
     }
 }
