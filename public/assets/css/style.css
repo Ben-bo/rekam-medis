@@ -1,0 +1,49 @@
+#konten .konten-card {
+  border: solid;
+  border-width: 1px;
+  border-color: forestgreen;
+  border-left-width: 6px;
+  border-left-color: forestgreen;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  box-shadow: 5px 5px 15px lightgray;
+}
+#konten table#table td#bot a.tombol:hover {
+  color: white;
+}
+
+#konten div.row#baris a {
+  color: inherit;
+  text-decoration: none;
+}
+#konten .konten-card:hover {
+  box-shadow: 5px 5px 10px palegreen;
+}
+
+body .hr-laporan {
+  border: solid;
+}
+
+.kartu-cetak {
+  border: none;
+}
+.card-header {
+  /* border-bottom: solid; */
+  border-bottom-width: 3px;
+}
+
+#konten .card img.foto {
+  width: 250px;
+}
+
+.kartu-login {
+  border-top: solid;
+  border-top-color: seagreen;
+  border-top-width: 9px;
+  border-top-left-radius: 9px;
+  border-top-right-radius: 9px;
+}
+div.rm {
+  display: flex;
+  justify-content: space-between;
+}
