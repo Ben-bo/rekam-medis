@@ -42,6 +42,11 @@
                                             <td><?= $rekam_medis['nama_obat'] ?></td>
                                         </tr>
                                         <tr>
+                                            <td>Poli</td>
+                                            <td>:</td>
+                                            <td><?= $rekam_medis['nama_poli'] ?></td>
+                                        </tr>
+                                        <tr>
                                             <td>Dokter yang menangani</td>
                                             <td>:</td>
                                             <td><?= $rekam_medis['nama_dokter'] ?></td>
@@ -61,7 +66,7 @@
                                         <tbody>
                                             <?php foreach ($history as $history) : ?>
                                                 <tr>
-                                                    <td><?= $history['created_at_rm'] ?></td>
+                                                    <td><?= date_format(new DateTime($history['created_at_rm']), 'd-m-Y')  ?></td>
                                                     <td><?= $history['keluhan'] ?></td>
                                                     <td><?= $history['anamnese/diagnosa'] ?></td>
                                                     <td id="bot">
