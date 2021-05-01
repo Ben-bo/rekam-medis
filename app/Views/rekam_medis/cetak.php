@@ -67,6 +67,11 @@
                         <td><?= $cetak['anamnese/diagnosa'] ?></td>
                     </tr>
                     <tr>
+                        <td>Poli</td>
+                        <td>:</td>
+                        <td><?= $cetak['nama_poli'] ?></td>
+                    </tr>
+                    <tr>
                         <td>Obat</td>
                         <td>:</td>
                         <td><?= $cetak['nama_obat'] ?></td>
