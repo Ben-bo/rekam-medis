@@ -24,6 +24,7 @@ class Rekam_medis_model extends Model
                 ->join('dokter', 'dokter.id_dokter=rekam_medis.id_dokter')
                 ->join('obat', 'obat.id_obat=rekam_medis.id_obat')
                 ->join('poli', 'poli.id_poli=rekam_medis.id_poli')
+                ->orderBy('id', 'ASC')
                 ->get()->getResultArray();
         }
         return $this
@@ -32,6 +33,10 @@ class Rekam_medis_model extends Model
             ->join('obat', 'obat.id_obat=rekam_medis.id_obat')
             ->join('poli', 'poli.id_poli=rekam_medis.id_poli')
             ->where(['id' => $id])->first();
+    }
+    public function idPoli($id)
+    {
+        return $this->select('id_poli')->where('id', $id)->first();
     }
     public function getDataRM($id_pasien = false)
     {
