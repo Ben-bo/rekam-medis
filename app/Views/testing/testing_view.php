@@ -8,14 +8,14 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
     <title>Hello, world!</title>
 </head>
 
 <body>
     <form action="/testing/" method="post" id="myform">
         <div style="width: 200px;" class="my-5 mx-5">
-            <select class="form-select" aria-label="Default select example" name="pasien" onchange="change()">
+            <select class="form-select" aria-label="Default select example" name="pasien" onchange="change()" id="pasien">
                 <option value="" hidden>PILIH</option>
                 <?php if ($norm) : ?>
                     <?php foreach ($pasien as $row) : ?>
@@ -34,7 +34,7 @@
             </select>
         </div>
         <div style="width: 200px;" class="my-5 mx-5">
-            <select class="form-select" aria-label="Default select example" name="no_rekam_medis">
+            <select class="form-select" aria-label="Default select example" name="no_rekam_medis" id="rm">
                 <option selected hidden>pilih data</option>
                 <?php if ($norm) : ?>
                     <?php foreach ($norm as $row) : ?>
@@ -55,13 +55,37 @@
 
     <!-- Optional JavaScript; choose one of the two! -->
     <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 
-    <script>
-        function change() {
-            document.getElementById("myform").submit();
-        }
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $('#pasien').change(function() {
+                var id = $(this).val();
+                $.ajax({
+                    url: "<?php echo base_url('testing/getrm'); ?>",
+                    method: "POST",
+                    data: {
+                        id: id
+                    },
+                    async: true,
+                    dataType: 'json',
+                    success: function(data) {
+
+                        var html = '';
+                        var i;
+                        for (i = 0; i < data.length; i++) {
+                            html += '<option value=' + data[i].id + '>' + data[i].no_rekam_medis + '</option>';
+                        }
+                        $('#rm').html(html);
+
+                    }
+                });
+                return false;
+            });
+
+        });
     </script>
 
 

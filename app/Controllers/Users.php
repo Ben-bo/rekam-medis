@@ -66,4 +66,15 @@ class Users extends BaseController
         session()->setFlashdata('pesan', 'Data berhasil di SIMPAN');
         return redirect()->to('/users');
     }
+    public function form_ubah($id_user)
+    {
+        session();
+        $userM = new Users_model();
+        $data = [
+            'judul' => 'form Ubah',
+            'user' => $userM->getDataUsers($id_user),
+            'validation' => \Config\Services::validation(),
+        ];
+        return view('dokter/form_ubah', $data);
+    }
 }

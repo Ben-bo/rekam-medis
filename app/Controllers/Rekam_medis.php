@@ -24,45 +24,28 @@ class Rekam_medis extends BaseController
         $this->poliM = new Poli_model();
         $this->dokterM = new Dokter_model();
     }
-    public function index($namaDokter = false, $id_poli = false)
+    public function index()
     {
         session();
-        $getIdPoli = $this->request->getVar('poli');
-        if ($getIdPoli) {
-            $data = [
-                'judul' => 'Rekam-Medis',
-                'rekam_medis' => $this->Rekam_medis_model->getDataRekamMedis(),
-                'pasien' => $this->pasienM->getDataPasien(),
-                'dokter' => $this->dokterM->getDataDokter(),
-                'obat' => $this->obatM->getDataObat(),
-                'poli' => $this->poliM->getDataPoli(),
-                'no_rekam_medis' => $this->Rekam_medis_model->no_rekam_medis(),
-                'validation' => \Config\Services::validation(),
-                'namaDokter' => $this->dokterM->getDataDokterFormPoli($getIdPoli),
-                'id_poli' => $getIdPoli
-            ];
-        } else {
-            $data = [
-                'judul' => 'Rekam-Medis',
-                'rekam_medis' => $this->Rekam_medis_model->getDataRekamMedis(),
-                'pasien' => $this->pasienM->getDataPasien(),
-                'dokter' => $this->dokterM->getDataDokter(),
-                'obat' => $this->obatM->getDataObat(),
-                'poli' => $this->poliM->getDataPoli(),
-                'no_rekam_medis' => $this->Rekam_medis_model->no_rekam_medis(),
-                'validation' => \Config\Services::validation(),
-                'namaDokter' => $namaDokter,
-                'id_poli' => $id_poli
-            ];
-        }
+
+        $data = [
+            'judul' => 'Rekam-Medis',
+            'rekam_medis' => $this->Rekam_medis_model->getDataRekamMedis(),
+            'pasien' => $this->pasienM->getDataPasien(),
+            'dokter' => $this->dokterM->getDataDokter(),
+            'obat' => $this->obatM->getDataObat(),
+            'poli' => $this->poliM->getDataPoli(),
+            'no_rekam_medis' => $this->Rekam_medis_model->no_rekam_medis(),
+            'validation' => \Config\Services::validation(),
+        ];
         return view('rekam_medis/data_rekam_medis', $data);
     }
     public function callDokter()
     {
         $dokterM = new Dokter_model();
-        $id_poli = $this->Request->post('poli');
+        $id_poli = $this->request->getPost('id');
         $data = $dokterM->getDataDokterFormPoli($id_poli);
-        json_encode($data);
+        echo json_encode($data);
     }
     public function add_data()
     {
@@ -156,39 +139,22 @@ class Rekam_medis extends BaseController
         return view('rekam_medis/cetak', $cetak);
     }
 
-    public function form_ubah($id, $namaDokter = false, $id_poli = false)
+    public function form_ubah($id)
     {
         session();
         $data = $this->Rekam_medis_model->idPoli($id);
         $data = $this->dokterM->getDataDokterFormPoli($data);
-        $getIdPoli = $this->request->getVar('poli');
-        if ($getIdPoli) {
-            $data = [
-                'judul' => 'Form Ubah',
-                'rekam_medis' => $this->Rekam_medis_model->getDataRekamMedis($id),
-                'pasien' => $this->pasienM->getDataPasien(),
-                'dokter' => $this->dokterM->getDataDokter(),
-                'obat' => $this->obatM->getDataObat(),
-                'poli' => $this->poliM->getDataPoli(),
-                'dataRekamMedis' => $this->Rekam_medis_model->getDataRekamMedis(),
-                'validation' => \Config\Services::validation(),
-                'namaDokter' => $this->dokterM->getDataDokterFormPoli($getIdPoli),
-                'id_poli' => $getIdPoli,
-            ];
-        } else {
-            $data = [
-                'judul' => 'Form Ubah',
-                'rekam_medis' => $this->Rekam_medis_model->getDataRekamMedis($id),
-                'pasien' => $this->pasienM->getDataPasien(),
-                'dokter' => $this->dokterM->getDataDokter(),
-                'obat' => $this->obatM->getDataObat(),
-                'poli' => $this->poliM->getDataPoli(),
-                'dataRekamMedis' => $this->Rekam_medis_model->getDataRekamMedis(),
-                'validation' => \Config\Services::validation(),
-                'namaDokter' => $data,
-                'id_poli' => $id_poli
-            ];
-        }
+        $data = [
+            'judul' => 'Form Ubah',
+            'rekam_medis' => $this->Rekam_medis_model->getDataRekamMedis($id),
+            'pasien' => $this->pasienM->getDataPasien(),
+            'dokter' => $this->dokterM->getDataDokter(),
+            'obat' => $this->obatM->getDataObat(),
+            'poli' => $this->poliM->getDataPoli(),
+            'dataRekamMedis' => $this->Rekam_medis_model->getDataRekamMedis(),
+            'validation' => \Config\Services::validation(),
+            'namaDokter' => $data,
+        ];
 
         return view('rekam_medis/form_ubah', $data);
     }

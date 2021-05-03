@@ -28,7 +28,7 @@
             <div class="card mt-3">
                 <div class="card-body">
                     <h5 class="card-header mb-2 bg-success text-white">Data Poli</h5>
-                    <table class="table table-hover">
+                    <table class="table table-hover" id="mytable">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -43,7 +43,7 @@
                                 <tr>
                                     <th scope="row"><?= $no++ ?></th>
                                     <td style="width: 200px;"><?= $poli['nama_poli'] ?></td>
-                                    <td style="width: 650px;text-align: justify;"><?= $poli['deskripsi_poli'] ?></td>
+                                    <td style="width: 550px;text-align: justify;"><?= $poli['deskripsi_poli'] ?></td>
                                     <td>
                                         <a href="/poli/form_ubah/<?= $poli['id_poli']; ?>/" class="btn btn-success text-white"><i class="fas fa-edit"></i></a>
                                         <a onclick="return confirm('yakin ingin hapus.?')" href="/poli/hapus/<?= $poli['id_poli']; ?>/" class="btn btn-danger text-white"><i class="fas fa-trash-alt"></i></a>

@@ -93,6 +93,27 @@
                     </div>
                 </div>
             </div>
+            <div class="col-sm-12 col-md-6 col-lg-4 ">
+                <div class="mt-4 bg-light py-3 konten-card">
+                    <div class="row">
+                        <div class="col-4  text-muted">
+                            <div class="container-fluid">
+                                <a href="/obat/">
+                                    <i class="fas fa-hand-holding-medical fa-4x text-success"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="container-fluid">
+                                <a href="/poli/">
+                                    <h4 class="">Poli</h4>
+                                    <h4 class="text-success"><?= $poli ?></h4>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         <?php endif ?>
     </div>
     <hr class="mt-4">

@@ -1,9 +1,10 @@
 <aside class="col-xs-12 col-md-3 col-lg-2  bg-light shadow" id="sidebar">
     <nav class="navbar navbar-expand-md navbar-light bg-light flex-md-column flex-row align-items-center sticky-top" id="sidebar">
-        <a href="#" class="navbar-brand  font-weight-bold text-nowrap"> Rekam Medis </a>
+        <a href="/" class="navbar-brand  font-weight-bold text-nowrap"> Rekam Medis </a>
         <div class="text-center ml-2">
-            <img src="/assets/img/icon-rs.png" class="img-fluid rounded-circle my-4 d-none d-md-block" alt="" style="width: 130px;">
-
+            <a href="/">
+                <img src="/assets/img/icon-rs.png" class="img-fluid rounded-circle my-4 d-none d-md-block" alt="" style="width: 130px;">
+            </a>
         </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -12,9 +13,6 @@
             <ul class="navbar-nav flex-column w-100 ">
                 <span class="side-header">Main Menu</span>
                 <hr class="dropdown-divider">
-                <li class="nav-item">
-                    <a href="/" class="nav-link active "><i class="fas fa-clinic-medical"></i> Home</a>
-                </li>
                 <?php if (session('hak_akses') ==  'admin' || session('hak_akses') == 'pendaftaran') : ?>
                     <li class="nav-item dropdown ">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -43,7 +41,9 @@
                     </li>
                 <?php endif; ?>
                 <?php if (session('hak_akses') == 'admin') : ?>
-                    <hr class="dropdown-divider">
+                    <li class="nav-item">
+                        <a href="/resep/" class="nav-link"><i class="fas fa-file"></i> Resep</a>
+                    </li>
                     <li class="nav-item">
                         <a href="/laporan/" class="nav-link"><i class="fas fa-file"></i> Laporan</a>
                     </li>

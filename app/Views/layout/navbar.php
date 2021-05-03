@@ -3,7 +3,7 @@
         <article>
             <nav class="navbar navbar-light bg-light shadow-sm ">
                 <div class="container-fluid ">
-                    <h5>Dashboard</h5>
+                    <h5>Klinik Kesehatan</h5>
                     <span class="navbar-text">
                         <li class="nav-item dropdown" style="list-style: none;">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

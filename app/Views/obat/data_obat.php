@@ -12,7 +12,7 @@
             <div class="card mt-3">
                 <div class="card-body">
                     <h5 class="card-header mb-2 bg-success text-white">Data Obat</h5>
-                    <table class="table table-hover">
+                    <table class="table table-hover" id="mytable">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>

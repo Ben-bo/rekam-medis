@@ -24,7 +24,7 @@ class Rekam_medis_model extends Model
                 ->join('dokter', 'dokter.id_dokter=rekam_medis.id_dokter')
                 ->join('obat', 'obat.id_obat=rekam_medis.id_obat')
                 ->join('poli', 'poli.id_poli=rekam_medis.id_poli')
-                ->orderBy('id', 'ASC')
+                ->orderBy('created_at_rm', 'DESC')
                 ->get()->getResultArray();
         }
         return $this

@@ -25,4 +25,8 @@ class Home_model extends Model
     {
         return $this->db->table('rekam_medis')->countAll();
     }
+    public function getPoli()
+    {
+        return $this->db->table('poli')->countAll();
+    }
 }

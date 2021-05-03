@@ -5,11 +5,39 @@
         <div class="col-12">
             <div class="card mt-3">
                 <div class="card-body">
+                    <?php if (session()->GetFlashdata('pesanResep')) : ?>
+                        <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert">
+                            <strong><?= session()->getFlashdata('pesanResep') ?></strong> <i class="fas fa-receipt"></i>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <?php endif ?>
+                    <div class="row mb-2">
+                        <div class="col-12 d-flex justify-content-center">
+                            <a href="/rekam_medis/form_ubah/<?= $rekam_medis['id'] ?>" class="btn btn-success text-white"><i class="fas fa-edit"></i> Edit</a>
+                            <div style="width: 5px;"></div>
+                            <a href="/rekam_medis/cetak/<?= $rekam_medis['no_rekam_medis']; ?>/" class="btn btn-outline-success " style="" type="button"><i class="fas fa-print"></i></a>
+                            <div style="width: 5px;"></div>
+                            <a href="/resep/resep/<?= $rekam_medis['id']; ?>/" class="btn btn-success text-white"><i class="fas fa-receipt"></i> Buat Resep</a>
+                            <div style="width: 5px;"></div>
+                            <a href="/rekam_medis/" class="btn btn-primary text-white">Kembali</a>
+                        </div>
+                    </div>
                     <div class="row ">
                         <div class="col-12 d-flex justify-content-center">
-                            <div class="card border-success mb-3" style="width: 40rem;">
+                            <div class="card border-success mb-3" style="width: 50rem;">
                                 <div class="card-body ">
                                     <h5 class="card-header mb-2 bg-success text-white text-center">CATATAN REKAM MEDIS PASIEN</h5>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h5 class="text-center mt-3">No.RM : <?= $rekam_medis['no_rekam_medis'] ?></h5>
+                                        </div>
+                                        <div class="col-6">
+                                            <h6 class=" text-center mt-3">Tgl : <?= $rekam_medis['created_at_rm'] ?></h6>
+                                        </div>
+                                    </div>
+
+                                    <hr>
+
                                     <table class="table">
                                         <tr>
                                             <td>Nama Pasien</td>
@@ -81,15 +109,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-12 d-flex justify-content-center">
-                            <a href="/rekam_medis/form_ubah/<?= $rekam_medis['id'] ?>" class="btn btn-success text-white"><i class="fas fa-edit"></i> Edit</a>
-                            <div style="width: 5px;"></div>
-                            <a href="/rekam_medis/cetak/<?= $rekam_medis['no_rekam_medis']; ?>/" class="btn btn-outline-success " style="" type="button"><i class="fas fa-print"></i></a>
-                            <div style="width: 5px;"></div>
-                            <a href="/rekam_medis/" class="btn btn-primary text-white">Kembali</a>
-                        </div>
-                    </div>
+
 
 
                 </div>

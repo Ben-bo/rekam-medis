@@ -33,7 +33,7 @@ class Testing extends BaseController
     public function getrm()
     {
         $modelT = new TestingM();
-        $idrm = $this->request->getPost('pasien');
+        $idrm = $this->request->getPost('id');
         $data = $modelT->getRm($idrm);
         // dd($data);
         echo json_encode($data);

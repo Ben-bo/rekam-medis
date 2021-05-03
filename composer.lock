@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "df0660f9fe6a6a6b84b54497725684df",
+    "content-hash": "a6ae824b328106fe7b3f8eaaba0140b3",
     "packages": [
         {
             "name": "codeigniter4/framework",
@@ -509,6 +509,52 @@
                 "source": "https://github.com/sabberworm/PHP-CSS-Parser/tree/8.3.1"
             },
             "time": "2020-06-01T09:10:00+00:00"
+        },
+        {
+            "name": "ttskch/select2-bootstrap4-theme",
+            "version": "1.5.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ttskch/select2-bootstrap4-theme.git",
+                "reference": "03fe405b21e4f8165a617b2b269346b1ffdc3619"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ttskch/select2-bootstrap4-theme/zipball/03fe405b21e4f8165a617b2b269346b1ffdc3619",
+                "reference": "03fe405b21e4f8165a617b2b269346b1ffdc3619",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Takashi Kanemoto",
+                    "email": "ttskch@gmail.com"
+                }
+            ],
+            "description": "Select2 v4 theme for Bootstrap4",
+            "keywords": [
+                "bootstrap",
+                "bootstrap4",
+                "css",
+                "scss",
+                "select2",
+                "theme"
+            ],
+            "support": {
+                "issues": "https://github.com/ttskch/select2-bootstrap4-theme/issues",
+                "source": "https://github.com/ttskch/select2-bootstrap4-theme/tree/1.5.2"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.com/paypalme/ttskch",
+                    "type": "custom"
+                }
+            ],
+            "time": "2021-01-28T07:02:26+00:00"
         }
     ],
     "packages-dev": [
