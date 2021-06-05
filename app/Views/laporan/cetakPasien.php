@@ -25,47 +25,46 @@
         <hr class="hr-laporan">
         <div class="card kartu-cetak">
             <div class="card-body">
-                <h2 class=" text-center mb-3 text-muted"> CATATAN REKAM MEDIS </h2>
-                <div class="row">
-                    <div class="col-6">
-                        <h5 class="text-center mt-3">No.RM : RM000<?= $rekam_medis['no_rekam_medis'] ?></h5>
-                    </div>
-                    <div class="col-6">
-                        <h6 class=" text-center mt-3">Tgl : <?= $rekam_medis['created_at_rm'] ?></h6>
-                    </div>
-                </div>
+                <h2 class=" text-center mb-3 text-muted"> LAPORAN REKAM MEDIS PASIEN </h2>
+                <hr style="border: solid 1px grey;">
                 <hr>
                 <div class="row">
                     <div class="col-6">
                         <table class="table table-bordered">
                             <tr>
-                                <td>Nama Pasien</td>
+                                <td>No Rekam Medis</td>
                                 <td>:</td>
-                                <td><?= $rekam_medis['nama_pasien'] ?></td>
+                                <td><b>RM000<?= $pasien['id_pasien'] ?></b></td>
                             </tr>
-                            <tr>
-                                <td>Jenis Kelamin</td>
-                                <td>:</td>
-                                <td><?= $rekam_medis['jenis_kelamin'] ?></td>
-                            </tr>
+
                         </table>
                     </div>
                     <div class="col-6">
                         <table class="table table-bordered">
                             <tr>
-                                <td>No HP</td>
+                                <td>Tanggal</td>
                                 <td>:</td>
-                                <td><?= $rekam_medis['no_hp'] ?></td>
-                            </tr>
-                            <tr>
-                                <td>Alamat</td>
-                                <td>:</td>
-                                <td><?= $rekam_medis['alamat'] ?></td>
+                                <td><?= date_format(new DateTime('today'), 'd-m-Y') ?></td>
                             </tr>
                         </table>
                     </div>
                 </div>
-                <h5 class="card-header mb-2 bg-success text-center mt-4">Riwayat Medis Pasien</h5>
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-bordered">
+                            <tr>
+                                <td colspan="3" class="text-center">Deskripsi</td>
+
+                            </tr>
+                            <tr>
+
+
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+                <h5 class="card-header mb-2 bg-success text-center mt-3">RECORD MEDIS PASIEN</h5>
                 <table class="table table-bordered " id="MyTable">
                     <thead>
                         <tr>
@@ -75,18 +74,18 @@
                             <th scope="col">Poli</th>
                             <th scope="col">Obat</th>
                             <th scope="col">Dokter</th>
-
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($history as $history) : ?>
+
+                        <?php foreach ($rekam_medis as $rekam_medis) : ?>
                             <tr>
                                 <td><b><?= $rekam_medis['created_at_rm'] ?></b></td>
-                                <td><?= $history['keluhan'] ?></td>
-                                <td><?= $history['anamnese/diagnosa'] ?></td>
-                                <td><?= $history['nama_poli'] ?></td>
-                                <td><?= $history['id_obat'] ?></td>
-                                <td><?= $history['nama_dokter'] ?></td>
+                                <td><?= $rekam_medis['keluhan'] ?></td>
+                                <td><?= $rekam_medis['anamnese/diagnosa'] ?></td>
+                                <td><?= $rekam_medis['nama_poli'] ?></td>
+                                <td><?= $rekam_medis['id_obat'] ?></td>
+                                <td><?= $rekam_medis['nama_dokter'] ?></td>
                             </tr>
                         <?php endforeach ?>
                     </tbody>

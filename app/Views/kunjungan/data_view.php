@@ -16,6 +16,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
+                                <th scope="col">Tanggal</th>
                                 <th scope="col">No rekam Medis</th>
                                 <th scope="col">Nama Pasien</th>
                                 <th scope="col">Poli</th>
@@ -29,6 +30,7 @@
                             <?php foreach ($kunjungan as $kunjungan) : ?>
                                 <tr>
                                     <th scope="row"><?= $no++ ?></th>
+                                    <td><b><?= date_format(new DateTime('today'), 'Y-m-d') == $kunjungan['created_at_kunjungan'] ? 'Hari ini' : $kunjungan['created_at_kunjungan'] ?></b></td>
                                     <td>RM000<?= $kunjungan['id_pasien'] ?></td>
                                     <td><?= $kunjungan['nama_pasien'] ?></td>
                                     <td><?= $kunjungan['nama_poli'] ?></td>

@@ -52,15 +52,17 @@ class Kunjungan extends BaseController
         $data = $this->Kunjungan_model->getPasienPoli($id_pasien);
         echo json_encode($data);
     }
-    public function form_ubah($id_obat)
+    public function form_ubah($id_kunjungan)
     {
         session();
         $data = [
             'judul' => 'Input Obat',
-            'obat' => $this->Kunjungan_model->getDataObat($id_obat),
+            'kunjungan' => $this->Kunjungan_model->getDataKunjungan($id_kunjungan),
+            'poli' => $this->Poli_model->getDataPoli(),
+            'pasien' => $this->Pasien_model->getDataPasien(),
             'validation' => \Config\Services::validation(),
         ];
-        return view('obat/form_ubah', $data);
+        return view('kunjungan/form_ubah', $data);
     }
     public function add_data()
     {
@@ -104,52 +106,38 @@ class Kunjungan extends BaseController
         session()->setFlashdata('pesan', 'Data berhasil di SIMPAN');
         return redirect()->to('/kunjungan');
     }
-    public function ubah($id_obat)
+    public function ubah($id_kunjungan)
     {
         //validasi input tidak kosong
         //jika tidak tervalidasi
         if (!$this->validate([
             //is_unique=sebuah rule yg mengharuskan isi dari field tidak boleh sama
             //penggunaan is_unique harus beserta nama tabel dan field yg bersangkutan
-            'nama_obat' => [
+            'no_rm' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Nama Obat harus di isi',
+                    'required' => 'Pilih No rekam Medis',
 
                 ]
             ],
-            'jenis_obat' => [
+            'nama_pasien' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'jenis obat harus di isi'
+                    'required' => 'isi nama pasien'
 
                 ]
             ],
-            'sediaan' => [
+            'poli' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'sediaan harus diisi'
+                    'required' => 'pilih poli'
 
                 ]
             ],
-            'dosis_anak' => [
+            'keluhan' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'dosis anak harus di isi'
-
-                ]
-            ],
-            'dosis_dewasa' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'dosis dewasa harus diisi'
-
-                ]
-            ],
-            'stok' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'stok harus di isi'
+                    'required' => 'isi keluhan'
 
                 ]
             ],
@@ -158,25 +146,23 @@ class Kunjungan extends BaseController
         ])) {
             //jika kondisi di atas terpenuhi maka
             // ketika redirect ke formtambah bawa inputan dan pesan validasinya(di simpan di session)
-            return redirect()->to('/obat/form_ubah/' . $id_obat)->withInput();
+            return redirect()->to('/kunjungan/form_ubah/' . $id_kunjungan)->withInput();
         }
         $this->Kunjungan_model->save([
-            'id_obat' => $id_obat,
-            'nama_obat' => $this->request->getVar('nama_obat'),
-            'jenis_obat' => $this->request->getVar('jenis_obat'),
-            'sediaan' => $this->request->getVar('sediaan'),
-            'dosis_anak' => $this->request->getVar('dosis_anak'),
-            'dosis_dewasa' => $this->request->getVar('dosis_dewasa'),
-            'stok' => $this->request->getVar('stok'),
+            'id_kunjungan' => $id_kunjungan,
+            'id_pasien' => $this->request->getVar('no_rm'),
+            'nama_pasien' => $this->request->getVar('nama_pasien'),
+            'id_poli' => $this->request->getVar('poli'),
+            'keluhan' => $this->request->getVar('keluhan'),
         ]);
         session()->setFlashdata('pesan', 'Data berhasil di Ubah');
-        return redirect()->to('/obat');
+        return redirect()->to('/kunjungan');
     }
-    public function hapus($id_obat)
+    public function hapus($id_kunjungan)
     {
-        $this->Kunjungan_model->delete($id_obat);
+        $this->Kunjungan_model->delete($id_kunjungan);
         session()->setFlashdata('pesan', 'Data berhasil di HAPUS');
-        return redirect()->to('/obat');
+        return redirect()->to('/kunjungan');
     }
 
 

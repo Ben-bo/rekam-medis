@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Dokter_model;
+use App\Models\Kunjungan_model;
 use App\Models\Obat_model;
 use App\Models\Pasien_model;
 use App\Models\Poli_model;
@@ -135,6 +136,48 @@ class Laporan extends BaseController
         $model = new Rekam_medis_model();
         $data = $model->lapp();
         dd($data);
+    }
+
+    public function laporanPoli()
+    {
+        $poliM = new Poli_model();
+        $data = [
+            'judul' => 'laporan poli',
+            'poli' => $poliM->getDataPoli()
+        ];
+        return view('laporan/laporanPoli', $data);
+    }
+    public function cetakPoli($id_poli)
+    {
+        $poliM = new Poli_model();
+        $kunjunganM = new Kunjungan_model();
+        $dokterM = new Dokter_model();
+        $rekam_medisM = new Rekam_medis_model();
+        $data = [
+            'poli' => $poliM->getDataPoli($id_poli),
+            'rekam_medis' => $rekam_medisM->getFromPoli($id_poli),
+        ];
+        return view('laporan/cetakPoli', $data);
+    }
+    public function laporanPasien()
+    {
+        $pasienM = new Pasien_model();
+        $data = [
+            'judul' => 'laporan pasien',
+            'pasien' => $pasienM->getDataPasien()
+        ];
+        return view('laporan/laporanPasien', $data);
+    }
+
+    public function cetakPasien($id_pasien)
+    {
+        $rekam_medisM = new Rekam_medis_model();
+        $pasienM = new Pasien_model();
+        $data = [
+            'rekam_medis' => $rekam_medisM->getDataRM($id_pasien),
+            'pasien' => $pasienM->getDataPasien($id_pasien),
+        ];
+        return view('laporan/cetakPasien', $data);
     }
 
     //--------------------------------------------------------------------

@@ -48,6 +48,15 @@
                     <li class="nav-item">
                         <a href="/resep/" class="nav-link"><i class="fas fa-receipt"></i> Resep</a>
                     </li>
+                    <li class="nav-item dropdown ">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-injured"></i> Laporan
+                        </a>
+                        <ul class="dropdown-menu shadow" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/laporan/laporanPasien/"><i class="fas fa-plus-square"></i> Laporan Pasien</a></li>
+                            <li><a class="dropdown-item" href="/laporan/laporanPoli"><i class="fas fa-file-alt"></i> Laporan Poli</a></li>
+                        </ul>
+                    </li>
                 <?php endif; ?>
                 <?php if (session('hak_akses') == 'admin') : ?>
                     <li class="nav-item">

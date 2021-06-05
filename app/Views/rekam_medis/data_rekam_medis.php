@@ -32,9 +32,9 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="nama_pasien" class="form-label">Nama Pasien</label>
-                                    <div class="nama_pasien" style="width: 100%;">
-                                        <input type="text" class="form-control " id="nama_pasien" readonly>
-                                    </div>
+                                    <select class="form-select nama_pasien <?= ($validation->hasError('keluhan')) ? 'is-invalid' : ''; ?>" aria-label="Default select example" name="nama_pasien" id="nama_pasien">
+                                        <option selected hidden value="">Pilih No rm</option>
+                                    </select>
                                     <div id="validationServer03Feedback" class="invalid-feedback">
                                         <?= $validation->getError('nama_pasien'); ?>
                                     </div>
@@ -132,13 +132,13 @@
                                         <option selected hidden value="">Pilih Dokter</option>
                                         <?php foreach ($dokter as $dokter) : ?>
                                             <?php if (old('nama_dokter')) : ?>
-                                                <?php if ($dokter['nama_dokter'] === old('nama_dokter')) : ?>
-                                                    <option selected value="<?= $dokter['nama_dokter'] ?>"><?= $dokter['nama_dokter'] ?></option>
+                                                <?php if ($dokter['id_dokter'] === old('nama_dokter')) : ?>
+                                                    <option selected value="<?= $dokter['id_dokter'] ?>"><?= $dokter['nama_dokter'] ?></option>
                                                 <?php else : ?>
-                                                    <option value="<?= $dokter['nama_dokter'] ?>"><?= $dokter['nama_dokter'] ?></option>
+                                                    <option value="<?= $dokter['id_dokter'] ?>"><?= $dokter['nama_dokter'] ?></option>
                                                 <?php endif ?>
                                             <?php else : ?>
-                                                <option value="<?= $dokter['nama_dokter'] ?>"><?= $dokter['nama_dokter'] ?></option>
+                                                <option value="<?= $dokter['id_dokter'] ?>"><?= $dokter['nama_dokter'] ?></option>
                                             <?php endif ?>
                                         <?php endforeach; ?>
                                     </select>
@@ -180,12 +180,13 @@
                                 <tr>
                                     <td><?= $no++ ?></td>
                                     <td><b><?= date_format(new DateTime('today'), 'Y-m-d') == $rekam_medis['created_at_rm'] ? 'Hari ini' : $rekam_medis['created_at_rm'] ?></b></td>
-                                    <td><?= $rekam_medis['no_rekam_medis'] ?></td>
+                                    <td>RM000<?= $rekam_medis['no_rekam_medis'] ?></td>
                                     <td><?= $rekam_medis['nama_pasien'] ?></td>
 
                                     <td><?= $rekam_medis['anamnese/diagnosa'] ?></td>
                                     <td id="bot">
                                         <a href=" <?= session()->GetFlashdata('pesanResep') ? '/resep/resepDetail/' . $rekam_medis['id'] . '/' . $rekam_medis['id_pasien'] . '' : '/rekam_medis/detail_rm/' . $rekam_medis['id'] . '/' . $rekam_medis['id_pasien'] . '' ?>  " class="btn btn-success text-white"><i class="fas fa-info-circle"></i> Detail</a>
+                                        <a href="/rekam_medis/form_ubah/<?= $rekam_medis['id'] ?>/<?= $rekam_medis['id_pasien'] ?> " class="btn btn-success text-white"><i class="fas fa-info-circle"></i> Ubah</a>
                                         <a onclick="return confirm('yakin ingin hapus.?')" href="/rekam_medis/hapus/<?= $rekam_medis['id']; ?>/" class="btn btn-danger text-white"><i class="fas fa-trash-alt"></i></a>
 
 

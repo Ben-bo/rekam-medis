@@ -11,7 +11,7 @@
                             <div class="col-6">
                                 <div class="mb-3">
                                     <label for="no_rm" class="form-label">No rekam Medis</label>
-                                    <select class="form-select <?= ($validation->hasError('no_rm')) ? 'is-invalid' : ''; ?>" aria-label=" Default select example" name="no_rm" id="rm">
+                                    <select class="form-select rm <?= ($validation->hasError('no_rm')) ? 'is-invalid' : ''; ?>" aria-label=" Default select example" name="no_rm">
                                         <option selected hidden value="">Pilih No rekam Medis</option>
                                         <?php foreach ($pasien as $pasien) : ?>
                                             <option value="<?= $pasien['id_pasien'] ?>">RM000<?= $pasien['id_pasien'] ?></option>

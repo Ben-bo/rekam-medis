@@ -11,7 +11,7 @@
                             <div class="col-6">
                                 <div class="mb-3">
                                     <label for="no_rekam_medis" class="form-label">No.RM</label>
-                                    <input type="text" class="form-control " id="no_rekam_medis" name="no_rekam_medis" value="<?= $rekam_medis['no_rekam_medis'] ?>" readonly>
+                                    <input type="text" class="form-control " id="no_rekam_medis" name="no_rekam_medis" value="RM000<?= $rekam_medis['no_rekam_medis'] ?>" readonly>
                                 </div>
                                 <div class="mb-3">
                                     <label for="pasien" class="form-label">Pasien</label>

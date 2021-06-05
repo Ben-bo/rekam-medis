@@ -57,31 +57,7 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#rm').change(function() {
-                var id = $(this).val();
-                $.ajax({
-                    url: "<?php echo base_url('kunjungan/callPasien'); ?>",
-                    method: "POST",
-                    data: {
-                        id: id
-                    },
-                    async: true,
-                    dataType: 'json',
-                    success: function(data) {
-                        var nama_pasien;
-                        nama_pasien = "<input readonly type='text' name='nama_pasien' class=form-control value='" + data.nama_pasien + "'>";
-                        $('.nama_pasien').html(nama_pasien);
 
-
-                    }
-                });
-                return false;
-            });
-
-        });
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function() {
             $('#rm').change(function() {
                 var id = $(this).val();
                 $.ajax({
@@ -93,17 +69,49 @@
                     async: true,
                     dataType: 'json',
                     success: function(data) {
-                        var keluhan;
-                        var poli;
+
+                        var namaPasien = '';
+                        var keluhan = '';
+                        var poli = '';
                         var i;
                         for (i = 0; i < data.length; i++) {
-                            keluhan += '<option value=' + data[i].keluhan + '>' + data[i].keluhan + '</option>';
+                            namaPasien += '<option value=' + data[i].id_pasien + '>' + data[i].nama_pasien + '</option>';
                         }
-                        $('.keluhan').html(keluhan);
+                        for (i = 0; i < data.length; i++) {
+                            keluhan += "<option value=' " + data[i].keluhan + "'>" + data[i].keluhan + "</option>";
+                        }
                         for (i = 0; i < data.length; i++) {
                             poli += '<option value=' + data[i].id_poli + '>' + data[i].nama_poli + '</option>';
                         }
+                        $('.nama_pasien').html(namaPasien);
+                        $('.keluhan').html(keluhan);
                         $('#poli').html(poli);
+
+                    }
+                });
+                return false;
+            });
+
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $('.rm').change(function() {
+                var id = $(this).val();
+                $.ajax({
+                    url: "<?php echo base_url('kunjungan/callPasien'); ?>",
+                    method: "POST",
+                    data: {
+                        id: id
+                    },
+                    async: true,
+                    dataType: 'json',
+                    success: function(data) {
+                        var namaPasien = '';
+                        namaPasien = "<input type='text' name='nama_pasien' class='form-control' value='" + data.nama_pasien + "' readonly>";
+
+                        $('.nama_pasien').html(namaPasien);
 
                     }
                 });

@@ -54,6 +54,23 @@ class Rekam_medis_model extends Model
             ->orderBy('id', 'DESC')
             ->where(['pasien.id_pasien' => $id_pasien])->get()->getResultArray();
     }
+    public function getFromPoli($id_poli = false)
+    {
+        if ($id_poli == false) {
+            return $this->db->table('rekam_medis')
+                ->join('pasien', 'pasien.id_pasien=rekam_medis.id_pasien')
+                ->join('dokter', 'dokter.id_dokter=rekam_medis.id_dokter')
+                ->join('poli', 'poli.id_poli=rekam_medis.id_poli')
+                ->orderBy('id', 'DESC')
+                ->get()->getResultArray();
+        }
+        return $this->db->table('rekam_medis')
+            ->join('pasien', 'pasien.id_pasien=rekam_medis.id_pasien')
+            ->join('dokter', 'dokter.id_dokter=rekam_medis.id_dokter')
+            ->join('poli', 'poli.id_poli=rekam_medis.id_poli')
+            ->orderBy('id', 'DESC')
+            ->where(['poli.id_poli' => $id_poli])->get()->getResultArray();
+    }
     public function getDataRMf($id_pasien = false)
     {
         if ($id_pasien == false) {
