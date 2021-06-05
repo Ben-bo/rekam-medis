@@ -31,11 +31,52 @@ class Users extends BaseController
     {
         $data = [
             'judul' => 'Form User',
+            'validation' => \Config\Services::validation(),
         ];
         return view('users/form_users', $data);
     }
     public function add_data()
     {
+        //validasi input tidak kosong
+        //jika tidak tervalidasi
+        if (!$this->validate([
+            //is_unique=sebuah rule yg mengharuskan isi dari field tidak boleh sama
+            //penggunaan is_unique harus beserta nama tabel dan field yg bersangkutan
+
+            'nama' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Nama user harus di isi',
+
+                ]
+            ],
+            'hak_akses' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Pilih Hak_akses'
+
+                ]
+            ],
+            'password' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'isi Password'
+
+                ]
+            ],
+            'email' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'email harus di isi '
+
+                ]
+            ],
+        ])) {
+            //jika kondisi di atas terpenuhi maka
+            // ketika redirect ke formtambah bawa inputan dan pesan validasinya(di simpan di session)
+            return redirect()->to('/users/form_users')->withInput();
+        }
+
         //ambil gambar dari form input
         $foto  = $this->request->getFile('foto');
         //cek apakah ada file yg di upload
@@ -55,7 +96,7 @@ class Users extends BaseController
             //getVar = mengambil data dari form method apa pun(bisa berupa get ataupun post)
             //bisa juga menggunaka getPost atau getGet
             'foto' => $namaFoto,
-            'nama_users' => $this->request->getVar('nama_users'),
+            'nama_users' => strtolower($this->request->getVar('nama_users')),
             'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
             'email' => $this->request->getVar('email'),
             'hak_akses' => $this->request->getVar('hak_akses'),
@@ -74,7 +115,98 @@ class Users extends BaseController
             'judul' => 'form Ubah',
             'user' => $userM->getDataUsers($id_user),
             'validation' => \Config\Services::validation(),
+            'hak_akses' => [
+                'admin',
+                'petugas_medis',
+            ]
         ];
-        return view('dokter/form_ubah', $data);
+        return view('users/form_ubah', $data);
+    }
+
+    public function update($id_user)
+    {
+        //validasi input tidak kosong
+        //jika tidak tervalidasi
+        if (!$this->validate([
+            //is_unique=sebuah rule yg mengharuskan isi dari field tidak boleh sama
+            //penggunaan is_unique harus beserta nama tabel dan field yg bersangkutan
+            'nama_users' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Nama user harus di isi',
+
+                ]
+            ],
+            'hak_akses' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Pilih Hak_akses'
+
+                ]
+            ],
+            'email' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'email harus di isi '
+
+                ]
+            ],
+
+
+
+        ])) {
+            //jika kondisi di atas terpenuhi maka
+            // ketika redirect ke formtambah bawa inputan dan pesan validasinya(di simpan di session)
+            return redirect()->to('/users/form_ubah/' . $id_user)->withInput();
+        }
+
+        //ambil gambar dari form input
+        $foto  = $this->request->getFile('foto');
+        $fotoDefault = $this->request->getVar('fotoLama');
+
+        //cek gambar apakah mau ubah, atau tetap gambar lama
+        //4= tidak ada file 
+        if ($foto->getError() == 4) {
+            $namaFoto = $this->request->getVar('fotoLama');;
+        } else {
+            //pindahkan file ke folder img
+            $foto->move('assets/img');
+            //ambil nama file untuk di simpan dalam database
+            $namaFoto = $foto->getName();
+            //jika fotoLama bukan foto default hapus foto lama
+            if ($fotoDefault !== 'default.jpg') {
+                //hapus file gambar lama
+                unlink('assets/img/' . $this->request->getVar('fotoLama'));
+            }
+        }
+        $password = $this->request->getVar('password');
+        $passwordLama = $this->request->getVar('passwordLama');
+        if ($password === "") {
+            $this->Users_model->save([
+                'id_users' => $id_user,
+                'foto' => $namaFoto,
+                'nama_users' => strtolower($this->request->getVar('nama_users')),
+                'password' => $passwordLama,
+                'email' => $this->request->getVar('email'),
+                'hak_akses' => $this->request->getVar('hak_akses'),
+            ]);
+        } else {
+            $this->Users_model->save([
+                'id_users' => $id_user,
+                'foto' => $namaFoto,
+                'nama_users' => strtolower($this->request->getVar('nama_users')),
+                'password' => password_hash($password, PASSWORD_DEFAULT),
+                'email' => $this->request->getVar('email'),
+                'hak_akses' => $this->request->getVar('hak_akses'),
+            ]);
+        }
+
+
+
+
+
+        //sebelum redirect set FlashData dulu
+        session()->setFlashdata('pesan', 'Data berhasil di UBAH');
+        return redirect()->to('/users');
     }
 }

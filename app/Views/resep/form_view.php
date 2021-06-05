@@ -32,7 +32,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="obat" class="form-label">Obat</label>
-                                    <input type="text" class="form-control " id="obat" name="obat" value="<?= $rekam_medis['nama_obat'] ?>" readonly>
+                                    <input type="text" class="form-control " id="obat" name="obat" value="<?= $rekam_medis['id_obat'] ?>" readonly>
                                 </div>
                                 <div class="mb-3">
                                     <label for="resep" class="form-label">Resep</label>

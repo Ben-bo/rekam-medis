@@ -23,16 +23,69 @@
             </div>
         </div>
         <hr class="hr-laporan">
-        <div class="card kartu-cetak">
-            <div class="rm">
-                <table border="1">
-                    <tr style="height: 30px;font-weight: bold;">
-                        <td>Tanggal </td>
-                        <td style="width: 25px;"> :</td>
-                        <td><?= date_format(new DateTime('today'), "d-m-Y") ?></td>
-                    </tr>
-                </table>
+        <h3 class="text-center">Rekap Data Aplikasi Rekam Medis</h3>
+        <div class="card mt-3">
+            <div class="card-body">
+                <h5 class="text-center">Data Count :</h5>
+                <hr style="border: 1px solid grey;">
+                <div class="kontainer">
+                    <div class="wrap">
+                        <div class="wrapDalam">
+                            <table class="table">
+                                <tr>
+                                    <td>DATA PASIEN </td>
+                                    <td> : </td>
+                                    <td><b><?= $pasienTotal ?></b> </td>
+                                </tr>
+                                <tr>
+                                    <td>DATA DOKTER </td>
+                                    <td> : </td>
+                                    <td><b><?= $dokterTotal ?></b> </td>
+                                </tr>
+                                <tr>
+                                    <td>DATA OBAT </td>
+                                    <td> : </td>
+                                    <td><b><?= $obatTotal ?></b> </td>
+                                </tr>
+
+                            </table>
+                        </div>
+                        <div class="wrapDalam">
+                            <table class="table">
+                                <tr>
+                                    <td>DATA REKAM MEDIS </td>
+                                    <td> : </td>
+                                    <td><b><?= $rekam_medisTotal ?></b> </td>
+                                </tr>
+                                <tr>
+                                    <td>DATA RESEP </td>
+                                    <td> : </td>
+                                    <td><b><?= $resepTotal ?></b> </td>
+                                </tr>
+                                <tr>
+                                    <td>DATA POLI </td>
+                                    <td> : </td>
+                                    <td><b><?= $poliTotal ?></b> </td>
+                                </tr>
+
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="wrapt">
+                        <table class="table">
+                            <tr>
+                                <td>Tanggal </td>
+                                <td> : </td>
+                                <td><?= date_format(new DateTime('today'), 'd-m-Y') ?> </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
             </div>
+        </div>
+        <div class="card kartu-cetak">
             <div class="card-body">
                 <h4 class="card-header">Data Pasien</h4>
                 <table class="table" id="MyTable">
@@ -46,7 +99,6 @@
                             <th scope="col">Alamat</th>
                             <th scope="col">NO HP</th>
                             <th scope="col">Kota/Kabupaten</th>
-
                             <th scope="col">Desa/kelurahan</th>
                         </tr>
                     </thead>
@@ -152,10 +204,57 @@
                                 <td><?= $rekam_medis['keluhan'] ?></td>
                                 <td><?= $rekam_medis['anamnese/diagnosa'] ?></td>
                                 <td><?= $rekam_medis['nama_dokter'] ?></td>
-                                <td><?= $rekam_medis['nama_obat'] ?></td>
+                                <td><?= $rekam_medis['id_obat'] ?></td>
                             </tr>
                         <?php endforeach ?>
                     </tbody>
+                </table>
+                <h4 class="card-header">Data Poli</h4>
+                <table class="table table-hover " id="MyTable">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nama Poli</th>
+                            <th scope="col">deskripsi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $no = 1 ?>
+                        <?php foreach ($poli as $poli) : ?>
+                            <tr>
+                                <td><?= $no++ ?></td>
+                                <td><?= $poli['nama_poli'] ?></td>
+                                <td><?= $poli['deskripsi_poli'] ?></td </tr>
+                            <?php endforeach ?>
+                    </tbody>
+                </table>
+
+                <h4 class="card-header">Data Resep</h4>
+                <table class="table table-hover " id="MyTable">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">NO.RM</th>
+                            <th scope="col">Pasien</th>
+                            <th scope="col">Diagnosa</th>
+                            <th scope="col">Dokter</th>
+                            <th scope="col">Resep</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $no = 1 ?>
+                        <?php foreach ($resep as $resep) : ?>
+                            <tr>
+                                <td><?= $no++ ?></td>
+                                <td><?= $resep['no_rekam_medis'] ?></td>
+                                <td><?= $resep['nama_pasien'] ?></td>
+                                <td><?= $resep['diagnosa'] ?></td>
+                                <td><?= $resep['dokter'] ?></td>
+                                <td><?= $resep['resep'] ?></td>
+                            </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
                 </table>
             </div>
         </div>

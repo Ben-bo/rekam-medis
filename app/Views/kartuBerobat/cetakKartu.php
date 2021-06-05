@@ -30,7 +30,7 @@
                 <tr>
                     <td>No Rekam Medis</td>
                     <td>:</td>
-                    <td><?= $no_rekam_medis ?></td>
+                    <td>RM000<?= $pasien['id_pasien'] ?></td>
                 </tr>
                 <tr>
                     <td>Nama Pasien</td>

@@ -2,7 +2,14 @@
 <?= $this->section('content') ?>
 <div id="konten">
     <div class="row" id="baris">
-        <?php if (session('hak_akses') == 'pendaftaran' || session('hak_akses') == 'admin') : ?>
+        <div class="jumbotron jumbotron-fluid mt-3">
+            <div class="container bg-light shadow-sm p-3">
+                <h1 class="display-4 text-center">Helo <?= session('nama_users') ?></h1>
+                <p class="lead text-center">saat ini anda sedang login sebagai <strong> <?= strtoupper(session('hak_akses')) ?></strong></p>
+
+            </div>
+        </div>
+        <?php if (session('hak_akses') == 'petugas_medis') : ?>
             <div class="col-sm-12 col-md-6 col-lg-4">
                 <div class="mt-5 bg-light py-3 konten-card">
                     <div class="row">
@@ -21,12 +28,9 @@
                                 </a>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
-        <?php endif ?>
-        <?php if (session('hak_akses') == 'rekam medis' || session('hak_akses') == 'admin') : ?>
             <div class="col-sm-12 col-md-6 col-lg-4 ">
                 <div class="mt-5 bg-light py-3 konten-card">
                     <div class="row">
@@ -49,8 +53,29 @@
                     </div>
                 </div>
             </div>
+            <div class="col-sm-12 col-md-6 col-lg-4 ">
+                <div class="mt-5 bg-light py-3 konten-card">
+                    <div class="row">
+                        <div class="col-4  text-muted">
+                            <div class="container-fluid">
+                                <a href="/obat/">
+                                    <i class="fas fa-receipt fa-4x text-success"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="container-fluid">
+                                <a href="/poli/">
+                                    <h4 class="">Resep</h4>
+                                    <h4 class="text-success"><?= $resep ?></h4>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         <?php endif ?>
-        <?php if (session('hak_akses') == 'admin') : ?>
+        <?php if (session('hak_akses') === 'admin') : ?>
             <div class="col-sm-12 col-md-6 col-lg-4 ">
                 <div class="mt-5 bg-light py-3 konten-card">
                     <div class="row">
@@ -73,7 +98,7 @@
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 col-lg-4 ">
-                <div class="mt-4 bg-light py-3 konten-card">
+                <div class="mt-5 bg-light py-3 konten-card">
                     <div class="row">
                         <div class="col-4  text-muted">
                             <div class="container-fluid">
@@ -94,7 +119,7 @@
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 col-lg-4 ">
-                <div class="mt-4 bg-light py-3 konten-card">
+                <div class="mt-5 bg-light py-3 konten-card">
                     <div class="row">
                         <div class="col-4  text-muted">
                             <div class="container-fluid">
@@ -114,11 +139,12 @@
                     </div>
                 </div>
             </div>
+
         <?php endif ?>
     </div>
     <hr class="mt-4">
     <div class="row" id="baris">
-        <?php if (session('hak_akses') == 'pendaftaran' || session('hak_akses') == 'admin') : ?>
+        <?php if (session('hak_akses') == 'petugas_medis') : ?>
             <div class="col-sm-12 col-md-6 col-lg-4 ">
                 <div class="mt-2 bg-light py-3 konten-card">
                     <div class="row">
@@ -148,15 +174,15 @@
                         <div class="col-4  text-muted">
                             <div class="container-fluid">
                                 <a href="/dokter/form_dokter/">
-                                    <i class="fas fa-user-nurse fa-4x text-success"></i>
+                                    <i class="fas fa-file fa-4x text-success"></i>
                                 </a>
                             </div>
                         </div>
                         <div class="col-8">
                             <div class="container-fluid">
-                                <a href="/dokter/form_dokter/">
-                                    <h4 class="">Input Data Dokter</h4>
-                                    <h6 class="text-muted">Form Data Dokter, Klik jika ingin menambahkan data Dokter baru</h6>
+                                <a href="/laporan">
+                                    <h4 class="">Laporan</h4>
+                                    <h6 class="text-muted">Buat Laporan Bulanan Aplikasi Rekam Medis</h6>
                                 </a>
                             </div>
                         </div>
@@ -169,15 +195,15 @@
                         <div class="col-4  text-muted">
                             <div class="container-fluid">
                                 <a href="/obat/form_obat/">
-                                    <i class="fas fa-pills fa-4x text-success"></i>
+                                    <i class="fas fa-users fa-4x text-success"></i>
                                 </a>
                             </div>
                         </div>
                         <div class="col-8">
                             <div class="container-fluid">
-                                <a href="/obat/form_obat/">
-                                    <h4 class="">Input Data Obat</h4>
-                                    <h6 class="text-muted">Form Pendaftaran Obat-Obatan, Klik jika ingin menambahkan data Obat baru</h6>
+                                <a href="/users">
+                                    <h4 class="">User</h4>
+                                    <h6 class="text-muted">Kelola Data User atau buat Akun baru</h6>
                                 </a>
                             </div>
                         </div>

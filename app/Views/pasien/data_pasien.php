@@ -11,6 +11,7 @@
             <?php endif ?>
             <div class="card mt-3">
                 <div class="card-body">
+                    <a href="/pasien/form_pasien/" class="btn btn-success mb-2"><i class="fas fa-plus"></i> Tambah Data</a>
                     <h5 class="card-header mb-2 bg-success text-white">Data Pasien</h5>
                     <table class="table table-hover " id="mytable">
                         <thead>
@@ -42,7 +43,7 @@
                             <?php endforeach ?>
                         </tbody>
                     </table>
-                    <a href="/pasien/form_pasien/" class="btn btn-success text-white"><i class="fas fa-plus"></i> Tambah Data</a>
+
                 </div>
             </div>
 

@@ -13,7 +13,10 @@
             <ul class="navbar-nav flex-column w-100 ">
                 <span class="side-header">Main Menu</span>
                 <hr class="dropdown-divider">
-                <?php if (session('hak_akses') ==  'admin' || session('hak_akses') == 'pendaftaran') : ?>
+                <li class="nav-item ">
+                    <a href="/" class="nav-link active"><i class="fas fa-home"></i> HOME</a>
+                </li>
+                <?php if (session('hak_akses') ==  'petugas_medis') : ?>
                     <li class="nav-item dropdown ">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-user-injured"></i> Pasien
@@ -35,15 +38,18 @@
                         <a href="/poli/" class="nav-link"><i class="fas fa-hand-holding-medical"></i> Data Poli</a>
                     </li>
                 <?php endif; ?>
-                <?php if (session('hak_akses') == 'admin' || session('hak_akses') == 'rekam medis') : ?>
+                <?php if (session('hak_akses') == 'petugas_medis') : ?>
                     <li class="nav-item">
                         <a href="/rekam_medis/" class="nav-link"><i class="fas fa-file-medical-alt"></i> Rekam Medis</a>
                     </li>
+                    <li class="nav-item">
+                        <a href="/kunjungan/" class="nav-link"><i class="fas fa-file-medical-alt"></i> Kunjungan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/resep/" class="nav-link"><i class="fas fa-receipt"></i> Resep</a>
+                    </li>
                 <?php endif; ?>
                 <?php if (session('hak_akses') == 'admin') : ?>
-                    <li class="nav-item">
-                        <a href="/resep/" class="nav-link"><i class="fas fa-file"></i> Resep</a>
-                    </li>
                     <li class="nav-item">
                         <a href="/laporan/" class="nav-link"><i class="fas fa-file"></i> Laporan</a>
                     </li>

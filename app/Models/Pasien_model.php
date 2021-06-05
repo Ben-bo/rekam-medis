@@ -23,6 +23,10 @@ class Pasien_model extends Model
         }
         return $this->where(['id_pasien' => $id_pasien])->first();
     }
+    public function getNamaPasien($id_pasien)
+    {
+        return $this->where('id_pasien', $id_pasien)->first();
+    }
 
     function bulan($bulan)
     {

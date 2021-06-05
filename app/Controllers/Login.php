@@ -20,7 +20,7 @@ class Login extends BaseController
     {
         $session = session();
         $model = new Users_model();
-        $nama_users = $this->request->getVar('nama_users');
+        $nama_users = strtolower($this->request->getVar('nama_users'));
         $password = $this->request->getVar('password');
         $data = $model->where('nama_users', $nama_users)->first();
         if ($data) {

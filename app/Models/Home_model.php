@@ -29,4 +29,8 @@ class Home_model extends Model
     {
         return $this->db->table('poli')->countAll();
     }
+    public function getResep()
+    {
+        return $this->db->table('resep')->countAll();
+    }
 }

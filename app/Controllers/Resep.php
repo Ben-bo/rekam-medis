@@ -113,6 +113,13 @@ class Resep extends BaseController
         session()->setFlashdata('pesanResep', 'Klik tombol Buat Resep');
         return redirect()->to('/rekam_medis/detail_rm/' . $id . '/' . $id_pasien . '');
     }
+    public function cetak($id_resep)
+    {
+        $data = [
+            'cetak' => $this->resepM->getDataResep($id_resep)
+        ];
+        return view('resep/cetak', $data);
+    }
 
 
     //--------------------------------------------------------------------

@@ -16,6 +16,7 @@ class Home extends BaseController
 			'obat' => $model->getObat(),
 			'rekam_medis' => $model->getRekam_medis(),
 			'poli' => $model->getPoli(),
+			'resep' => $model->getResep(),
 
 		];
 		return view('home/home_views', $data);

@@ -25,7 +25,7 @@
         <hr class="hr-laporan">
         <div class="card kartu-cetak">
             <div class="card-body">
-                <h2 class=" text-center mb-5 text-muted"> CATATAN REKAM MEDIS </h2>
+                <h2 class=" text-center mb-5 text-muted"> Resep / Terapi Pasien </h2>
                 <div class="rm">
                     <table border="1">
                         <tr style="height: 30px;font-weight: bold;">
@@ -38,7 +38,7 @@
                         <tr style="height: 30px;font-weight: bold;">
                             <td>Tanggal Pemeriksaan</td>
                             <td style="width: 25px;"> :</td>
-                            <td><?= date_format(new DateTime($cetak['created_at_rm']), "d-m-Y") ?></td>
+                            <td><?= date_format(new DateTime($cetak['created_at']), "d-m-Y") ?></td>
                         </tr>
                     </table>
                 </div>
@@ -52,39 +52,24 @@
                         <td><?= $cetak['nama_pasien'] ?></td>
                     </tr>
                     <tr>
-                        <td>Jenis Kelamin</td>
+                        <td>Diagnosa</td>
                         <td>:</td>
-                        <td><?= $cetak['jenis_kelamin'] ?></td>
-                    </tr>
-                    <tr>
-                        <td>Keluhan</td>
-                        <td>:</td>
-                        <td><?= $cetak['keluhan'] ?></td>
-                    </tr>
-                    <tr>
-                        <td>Anamnese/Diagnosa</td>
-                        <td>:</td>
-                        <td><?= $cetak['anamnese/diagnosa'] ?></td>
-                    </tr>
-                    <tr>
-                        <td>Poli</td>
-                        <td>:</td>
-                        <td><?= $cetak['nama_poli'] ?></td>
+                        <td><?= $cetak['diagnosa'] ?></td>
                     </tr>
                     <tr>
                         <td>Obat</td>
                         <td>:</td>
-                        <td><?= $cetak['id_obat'] ?></td>
+                        <td><?= $cetak['obat'] ?></td>
+                    </tr>
+                </table>
+                <table class="table mt-3">
+                    <tr>
+                        <td colspan="3" class="text-center">
+                            <h4>RESEP/TERAPI</h4>
+                        </td>
                     </tr>
                     <tr>
-                        <td>Alamat</td>
-                        <td>:</td>
-                        <td><?= $cetak['alamat'] ?></td>
-                    </tr>
-                    <tr>
-                        <td>NO Tlp</td>
-                        <td>:</td>
-                        <td><?= $cetak['no_hp'] ?></td>
+                        <td><?= $cetak['resep'] ?></td>
                     </tr>
                 </table>
                 <table class="mt-5">
@@ -98,7 +83,7 @@
                         <td>&nbsp;</td>
                     </tr>
                     <tr>
-                        <td style="text-decoration: underline; font-weight: bold;">( <?= $cetak['nama_dokter'] ?> )</td>
+                        <td style="text-decoration: underline; font-weight: bold;">( <?= $cetak['dokter'] ?> )</td>
                     </tr>
                 </table>
             </div>

@@ -17,7 +17,7 @@ class Resep_model extends Model
     public function getDataResep($id_resep = false)
     {
         if ($id_resep == false) {
-            return $this->findAll();
+            return $this->orderBy('id_resep', 'DESC')->get()->getResultArray();;
         }
         return $this
             ->where(['id_resep' => $id_resep])->first();

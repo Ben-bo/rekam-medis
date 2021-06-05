@@ -7,7 +7,7 @@
                     <span class="navbar-text">
                         <li class="nav-item dropdown" style="list-style: none;">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="/assets/img/<?= session('foto') ?>" alt="" style="width: 20px;" class="img-fluid rounded-circle"> <?= session('nama_users') ?>
+                                <img src="/assets/img/<?= session('foto') ?>" alt="" style="width: 20px;" class="img-fluid rounded-circle"> <?= strtoupper(session('nama_users')) ?>
                             </a>
                             <ul class="dropdown-menu shadow" aria-labelledby="navbarDropdown">
                                 <li class="px-3 bg-info"><span>Level : </span><?= ucfirst(session('hak_akses')) ?></li>

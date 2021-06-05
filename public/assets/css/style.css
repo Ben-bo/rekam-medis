@@ -47,3 +47,15 @@ div.rm {
   display: flex;
   justify-content: space-between;
 }
+.card .kontainer {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+}
+.card .kontainer .wrap {
+  display: flex;
+  width: 50%;
+  height: 100%;
+  justify-content: space-between;
+}

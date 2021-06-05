@@ -67,7 +67,7 @@
                                         <tr>
                                             <td>Obat yang digunakan</td>
                                             <td>:</td>
-                                            <td><?= $rekam_medis['nama_obat'] ?></td>
+                                            <td><?= $rekam_medis['id_obat'] ?></td>
                                         </tr>
                                         <tr>
                                             <td>Poli</td>
@@ -94,7 +94,7 @@
                                         <tbody>
                                             <?php foreach ($history as $history) : ?>
                                                 <tr>
-                                                    <td><?= date_format(new DateTime($history['created_at_rm']), 'd-m-Y')  ?></td>
+                                                    <td><b><?= date_format(new DateTime('today'), 'Y-m-d') === $history['created_at_rm'] ? 'Hari ini' : $rekam_medis['created_at_rm'] ?></b></td>
                                                     <td><?= $history['keluhan'] ?></td>
                                                     <td><?= $history['anamnese/diagnosa'] ?></td>
                                                     <td id="bot">

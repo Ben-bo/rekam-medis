@@ -22,15 +22,13 @@ class Rekam_medis_model extends Model
             return $this->db->table('rekam_medis')
                 ->join('pasien', 'pasien.id_pasien=rekam_medis.id_pasien')
                 ->join('dokter', 'dokter.id_dokter=rekam_medis.id_dokter')
-                ->join('obat', 'obat.id_obat=rekam_medis.id_obat')
                 ->join('poli', 'poli.id_poli=rekam_medis.id_poli')
-                ->orderBy('created_at_rm', 'DESC')
+                ->orderBy('id', 'DESC')
                 ->get()->getResultArray();
         }
         return $this
             ->join('pasien', 'pasien.id_pasien=rekam_medis.id_pasien')
             ->join('dokter', 'dokter.id_dokter=rekam_medis.id_dokter')
-            ->join('obat', 'obat.id_obat=rekam_medis.id_obat')
             ->join('poli', 'poli.id_poli=rekam_medis.id_poli')
             ->where(['id' => $id])->first();
     }
@@ -44,15 +42,16 @@ class Rekam_medis_model extends Model
             return $this->db->table('rekam_medis')
                 ->join('pasien', 'pasien.id_pasien=rekam_medis.id_pasien')
                 ->join('dokter', 'dokter.id_dokter=rekam_medis.id_dokter')
-                ->join('obat', 'obat.id_obat=rekam_medis.id_obat')
                 ->join('poli', 'poli.id_poli=rekam_medis.id_poli')
+                ->orderBy('id', 'DESC')
                 ->get()->getResultArray();
         }
         return $this->db->table('rekam_medis')
             ->join('pasien', 'pasien.id_pasien=rekam_medis.id_pasien')
             ->join('dokter', 'dokter.id_dokter=rekam_medis.id_dokter')
-            ->join('obat', 'obat.id_obat=rekam_medis.id_obat')
+
             ->join('poli', 'poli.id_poli=rekam_medis.id_poli')
+            ->orderBy('id', 'DESC')
             ->where(['pasien.id_pasien' => $id_pasien])->get()->getResultArray();
     }
     public function getDataRMf($id_pasien = false)
@@ -61,21 +60,33 @@ class Rekam_medis_model extends Model
             return $this->db->table('rekam_medis')
                 ->join('pasien', 'pasien.id_pasien=rekam_medis.id_pasien')
                 ->join('dokter', 'dokter.id_dokter=rekam_medis.id_dokter')
-                ->join('obat', 'obat.id_obat=rekam_medis.id_obat')
+
                 ->join('poli', 'poli.id_poli=rekam_medis.id_poli')
                 ->get()->getResultArray();
         }
         return $this
             ->join('pasien', 'pasien.id_pasien=rekam_medis.id_pasien')
             ->join('dokter', 'dokter.id_dokter=rekam_medis.id_dokter')
-            ->join('obat', 'obat.id_obat=rekam_medis.id_obat')
+
             ->join('poli', 'poli.id_poli=rekam_medis.id_poli')
             ->where(['pasien.nama_pasien' => $id_pasien])->first();
     }
 
     public function stokObat($obat)
     {
-        return $this->db->table('obat')->where(['id_obat' => $obat])->get()->getRow();
+        $data = $this->db->table('obat')->where('nama_obat', $obat)->get()->getRowObject();
+        return $data->stok;
+    }
+    public function idobat($obat)
+    {
+        $data = $this->db->table('obat')->where('nama_obat', $obat)->get()->getRowObject();
+        return $data->id_obat;
+    }
+
+    public function namaObatRM($id)
+    {
+        $data = $this->where('id', $id)->get()->getRowObject();
+        return $data->id_obat;
     }
 
     public function no_rekam_medis()
@@ -99,37 +110,71 @@ class Rekam_medis_model extends Model
 
     public function filterPasien($bulan, $tahun)
     {
-        $db = \Config\Database::connect();
-        $data = $db->query("SELECT * FROM pasien WHERE YEAR(created_at)= '" . $tahun . "' AND MONTH(created_at)=" . $bulan);
-        return $data->getResultArray();
+        return $this->db->table('pasien')->where('YEAR(created_at_pasien)', $tahun)->where('MONTH(created_at_pasien)', $bulan)->get()->getResultArray();
     }
     public function filterDokter($bulan, $tahun)
     {
-        $db = \Config\Database::connect();
-        $data = $db->query("SELECT * FROM dokter WHERE YEAR(created_at)= '" . $tahun . "' AND MONTH(created_at)=" . $bulan);
-        return $data->getResultArray();
+        return $this->db->table('dokter')->where('YEAR(created_at_dokter)', $tahun)->where('MONTH(created_at_dokter)', $bulan)->get()->getResultArray();
     }
     public function filterObat($bulan, $tahun)
     {
-        $db = \Config\Database::connect();
-        $data = $db->query("SELECT * FROM obat WHERE YEAR(created_at)= '" . $tahun . "' AND MONTH(created_at)=" . $bulan);
-        return $data->getResultArray();
+        return $this->db->table('obat')->where('YEAR(created_at_obat)', $tahun)->where('MONTH(created_at_obat)', $bulan)->get()->getResultArray();
+    }
+    public function filterPoli($bulan, $tahun)
+    {
+        return $this->db->table('poli')->where('YEAR(created_at_poli)', $tahun)->where('MONTH(created_at_poli)', $bulan)->get()->getResultArray();
+    }
+    public function filterResep($bulan, $tahun)
+    {
+        return $this->db->table('resep')->where('YEAR(created_at)', $tahun)->where('MONTH(created_at)', $bulan)->get()->getResultArray();
     }
     public function filterRekamMedis($bulan, $tahun)
     {
         return $this->db->table('rekam_medis')
             ->join('pasien', 'pasien.id_pasien=rekam_medis.id_pasien')
             ->join('dokter', 'dokter.id_dokter=rekam_medis.id_dokter')
-            ->join('obat', 'obat.id_obat=rekam_medis.id_obat')
+
             ->join('poli', 'poli.id_poli=rekam_medis.id_poli')
-            ->where('YEAR(rekam_medis.created_at)', $tahun)->where('MONTH(rekam_medis.created_at)', $bulan)->get()->getResultArray();
+            ->where('YEAR(rekam_medis.created_at_rm)', $tahun)->where('MONTH(rekam_medis.created_at_rm)', $bulan)->get()->getResultArray();
     }
+
+    public function totalPasien($bulan, $tahun)
+    {
+        return
+            $this->db->table('pasien')->where('YEAR(created_at_pasien)', $tahun)->where('MONTH(created_at_pasien)', $bulan)->countAllResults();
+    }
+    public function totalObat($bulan, $tahun)
+    {
+        return
+            $this->db->table('obat')->where('YEAR(created_at_obat)', $tahun)->where('MONTH(created_at_obat)', $bulan)->countAllResults();
+    }
+    public function totalDokter($bulan, $tahun)
+    {
+        return
+            $this->db->table('dokter')->where('YEAR(created_at_dokter)', $tahun)->where('MONTH(created_at_dokter)', $bulan)->countAllResults();
+    }
+    public function totalPoli($bulan, $tahun)
+    {
+        return
+            $this->db->table('poli')->where('YEAR(created_at_poli)', $tahun)->where('MONTH(created_at_poli)', $bulan)->countAllResults();
+    }
+    public function totalRM($bulan, $tahun)
+    {
+        return
+            $this->db->table('rekam_medis')->where('YEAR(created_at_rm)', $tahun)->where('MONTH(created_at_rm)', $bulan)->countAllResults();
+    }
+    public function totalResep($bulan, $tahun)
+    {
+        return
+            $this->db->table('resep')->where('YEAR(created_at)', $tahun)->where('MONTH(created_at)', $bulan)->countAllResults();
+    }
+
     public function getDataCetak($no_rekam_medis)
     {
         return $this
             ->join('pasien', 'pasien.id_pasien=rekam_medis.id_pasien')
             ->join('dokter', 'dokter.id_dokter=rekam_medis.id_dokter')
-            ->join('obat', 'obat.id_obat=rekam_medis.id_obat')
+
             ->join('poli', 'poli.id_poli=rekam_medis.id_poli')
             ->where(['no_rekam_medis' => $no_rekam_medis])->first();
     }

@@ -23,26 +23,27 @@
                             <div class="col-6">
                                 <div class="mb-3">
                                     <label for="no_rm" class="form-label">Nomor Rekam Medis</label>
-                                    <input type="text" class="form-control" id="no_rm" name="no_rekam_medis" value="<?php echo sprintf("%04s", $no_rekam_medis) ?>" readonly>
+                                    <select class="form-select <?= ($validation->hasError('no_rm')) ? 'is-invalid' : ''; ?>" aria-label=" Default select example" name="no_rm" id="rm">
+                                        <option selected hidden value="">Pilih No rekam Medis</option>
+                                        <?php foreach ($pasien as $pasien) : ?>
+                                            <option value="<?= $pasien['id_pasien'] ?>">RM000<?= $pasien['id_pasien'] ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
                                 <div class="mb-3">
                                     <label for="nama_pasien" class="form-label">Nama Pasien</label>
-                                    <select class="form-select <?= ($validation->hasError('nama_pasien')) ? 'is-invalid' : ''; ?>" aria-label=" Default select example" name="nama_pasien" id="nama_pasien">
-                                        <option selected hidden value="">Pilih Pasien</option>
-                                        <?php foreach ($pasien as $pasien) : ?>
-                                            <option value="<?= $pasien['id_pasien'] ?>"><?= $pasien['nama_pasien'] ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
+                                    <div class="nama_pasien" style="width: 100%;">
+                                        <input type="text" class="form-control " id="nama_pasien" readonly>
+                                    </div>
                                     <div id="validationServer03Feedback" class="invalid-feedback">
                                         <?= $validation->getError('nama_pasien'); ?>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="keluhan" class="form-label">Keluhan</label>
-                                    <input type="text" class="form-control <?= ($validation->hasError('keluhan')) ? 'is-invalid' : ''; ?>" id="keluhan" name="keluhan" <?= ($validation->hasError('keluhan')) ? 'autofocus' : ''; ?> value="<?= old('keluhan'); ?>">
-                                    <div id="validationServer03Feedback" class="invalid-feedback">
-                                        <?= $validation->getError('keluhan'); ?>
-                                    </div>
+                                    <select class="form-select keluhan <?= ($validation->hasError('keluhan')) ? 'is-invalid' : ''; ?>" aria-label="Default select example" name="keluhan" id="keluhan">
+                                        <option selected hidden value="">Pilih No rm</option>
+                                    </select>
                                 </div>
                                 <div class="mt-5 text-center">
                                     <input class="btn btn-success" type="submit" value="Simpan">
@@ -52,14 +53,56 @@
                             <div class="col-6">
                                 <div class="mb-3">
                                     <label for="obat" class="form-label">Nama Obat</label>
-                                    <select class="form-select <?= ($validation->hasError('nama_obat')) ? 'is-invalid' : ''; ?>" aria-label="Default select example" name="nama_obat" id="obat">
-                                        <option selected hidden value="">Pilih Obat</option>
-                                        <?php foreach ($obat as $obat) : ?>
-                                            <option value="<?= $obat['id_obat'] ?>"><?= $obat['nama_obat'] ?></option>
+                                    <select class="form-select <?= ($validation->hasError('nama_obat')) ? 'is-invalid' : ''; ?>" name="nama_obat" id="obat">
+                                        <option selected hidden value="">Pilih obat</option>
+                                        <?php foreach ($obat2 as $obat) : ?>
+                                            <?php if (old('nama_obat')) : ?>
+                                                <?php if ($obat['nama_obat'] === old('nama_obat')) : ?>
+                                                    <option selected value="<?= $obat['nama_obat'] ?>"><?= $obat['nama_obat'] ?></option>
+                                                <?php else : ?>
+                                                    <option value="<?= $obat['nama_obat'] ?>"><?= $obat['nama_obat'] ?></option>
+                                                <?php endif ?>
+                                            <?php else : ?>
+                                                <option value="<?= $obat['nama_obat'] ?>"><?= $obat['nama_obat'] ?></option>
+                                            <?php endif ?>
                                         <?php endforeach; ?>
                                     </select>
                                     <div id="validationServer03Feedback" class="invalid-feedback">
                                         <?= $validation->getError('nama_obat'); ?>
+                                    </div>
+                                    <select class="form-select mt-1 <?= ($validation->hasError('nama_obat1')) ? 'is-invalid' : ''; ?>" name="nama_obat1" id="obat">
+                                        <option selected hidden value="">Pilih obat</option>
+                                        <?php foreach ($obat1 as $obat) : ?>
+                                            <?php if (old('nama_obat1')) : ?>
+                                                <?php if ($obat['nama_obat'] === old('nama_obat1')) : ?>
+                                                    <option selected value="<?= $obat['nama_obat'] ?>"><?= $obat['nama_obat'] ?></option>
+                                                <?php else : ?>
+                                                    <option value="<?= $obat['nama_obat'] ?>"><?= $obat['nama_obat'] ?></option>
+                                                <?php endif ?>
+                                            <?php else : ?>
+                                                <option value="<?= $obat['nama_obat'] ?>"><?= $obat['nama_obat'] ?></option>
+                                            <?php endif ?>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <div id="validationServer03Feedback" class="invalid-feedback">
+                                        <?= $validation->getError('nama_obat1'); ?>
+                                    </div>
+                                    <select class="form-select mt-1 <?= ($validation->hasError('nama_obat2')) ? 'is-invalid' : ''; ?>" name="nama_obat2" id="obat">
+                                        <option selected hidden value="">Pilih obat</option>
+                                        <?php foreach ($obat2 as $obat) : ?>
+                                            <?php if (old('nama_obat2')) : ?>
+                                                <?php if ($obat['nama_obat'] === old('nama_obat2')) : ?>
+                                                    <option selected value="<?= $obat['nama_obat'] ?>"><?= $obat['nama_obat'] ?></option>
+                                                <?php else : ?>
+                                                    <option value="<?= $obat['nama_obat'] ?>"><?= $obat['nama_obat'] ?></option>
+                                                <?php endif ?>
+                                            <?php else : ?>
+                                                <option value="<?= $obat['nama_obat'] ?>"><?= $obat['nama_obat'] ?></option>
+                                            <?php endif ?>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <div id="validationServer03Feedback" class="invalid-feedback">
+                                        <?= $validation->getError('nama_obat2'); ?>
                                     </div>
                                 </div>
                                 <div class="mb-3">
@@ -85,9 +128,19 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="nama_dokter" class="form-label">Nama Dokter</label>
-                                    <select class="form-select <?= ($validation->hasError('nama_dokter')) ? 'is-invalid' : ''; ?>" aria-label="Default select example" name="nama_dokter" id="nama_dokter">
-                                        <option selected hidden value="">Pilih poli terlebih dahulu</option>
-
+                                    <select class="form-select mt-1 <?= ($validation->hasError('nama_dokter')) ? 'is-invalid' : ''; ?>" name="nama_dokter" id="dokter">
+                                        <option selected hidden value="">Pilih Dokter</option>
+                                        <?php foreach ($dokter as $dokter) : ?>
+                                            <?php if (old('nama_dokter')) : ?>
+                                                <?php if ($dokter['nama_dokter'] === old('nama_dokter')) : ?>
+                                                    <option selected value="<?= $dokter['nama_dokter'] ?>"><?= $dokter['nama_dokter'] ?></option>
+                                                <?php else : ?>
+                                                    <option value="<?= $dokter['nama_dokter'] ?>"><?= $dokter['nama_dokter'] ?></option>
+                                                <?php endif ?>
+                                            <?php else : ?>
+                                                <option value="<?= $dokter['nama_dokter'] ?>"><?= $dokter['nama_dokter'] ?></option>
+                                            <?php endif ?>
+                                        <?php endforeach; ?>
                                     </select>
                                     <div id="validationServer03Feedback" class="invalid-feedback">
                                         <?= $validation->getError('nama_dokter'); ?>
@@ -112,21 +165,24 @@
                     <table class="table table-hover " id="mytable">
                         <thead>
                             <tr>
+                                <th scope="col">No</th>
                                 <th scope="col">Tanggal</th>
                                 <th scope="col">No Rekam Medis</th>
                                 <th scope="col">Nama Pasien</th>
-                                <th scope="col">Keluhan</th>
+
                                 <th scope="col">Anamnese/Diagnosa</th>
                                 <th scope="col">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <?php $no = 1 ?>
                             <?php foreach ($rekam_medis as $rekam_medis) : ?>
                                 <tr>
+                                    <td><?= $no++ ?></td>
                                     <td><b><?= date_format(new DateTime('today'), 'Y-m-d') == $rekam_medis['created_at_rm'] ? 'Hari ini' : $rekam_medis['created_at_rm'] ?></b></td>
                                     <td><?= $rekam_medis['no_rekam_medis'] ?></td>
                                     <td><?= $rekam_medis['nama_pasien'] ?></td>
-                                    <td><?= $rekam_medis['keluhan'] ?></td>
+
                                     <td><?= $rekam_medis['anamnese/diagnosa'] ?></td>
                                     <td id="bot">
                                         <a href=" <?= session()->GetFlashdata('pesanResep') ? '/resep/resepDetail/' . $rekam_medis['id'] . '/' . $rekam_medis['id_pasien'] . '' : '/rekam_medis/detail_rm/' . $rekam_medis['id'] . '/' . $rekam_medis['id_pasien'] . '' ?>  " class="btn btn-success text-white"><i class="fas fa-info-circle"></i> Detail</a>

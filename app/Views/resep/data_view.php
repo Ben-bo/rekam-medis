@@ -34,7 +34,7 @@
                                     <td><?= $resep['no_rekam_medis'] ?></td>
                                     <td><?= $resep['nama_pasien'] ?></td>
                                     <td><?= $resep['diagnosa'] ?></td>
-                                    <td><?= $resep['resep'] ?></td>
+                                    <td style="max-width: 200px;"><?= $resep['resep'] ?></td>
                                     <td>
                                         <a href="/resep/cetak/<?= $resep['id_resep']; ?>/" class="btn btn-success text-white"><i class="fas fa-print"></i></a>
                                         <a href="/resep/form_ubah/<?= $resep['id_resep']; ?>/" class="btn btn-success text-white"><i class="fas fa-edit"></i> Ubah</a>

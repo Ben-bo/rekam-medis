@@ -57,11 +57,10 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function() {
-
-            $('#poli').change(function() {
+            $('#rm').change(function() {
                 var id = $(this).val();
                 $.ajax({
-                    url: "<?php echo base_url('rekam_medis/callDokter'); ?>",
+                    url: "<?php echo base_url('kunjungan/callPasien'); ?>",
                     method: "POST",
                     data: {
                         id: id
@@ -69,13 +68,42 @@
                     async: true,
                     dataType: 'json',
                     success: function(data) {
+                        var nama_pasien;
+                        nama_pasien = "<input readonly type='text' name='nama_pasien' class=form-control value='" + data.nama_pasien + "'>";
+                        $('.nama_pasien').html(nama_pasien);
 
-                        var html = '';
+
+                    }
+                });
+                return false;
+            });
+
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#rm').change(function() {
+                var id = $(this).val();
+                $.ajax({
+                    url: "<?php echo base_url('kunjungan/callPasienPoli'); ?>",
+                    method: "POST",
+                    data: {
+                        id: id
+                    },
+                    async: true,
+                    dataType: 'json',
+                    success: function(data) {
+                        var keluhan;
+                        var poli;
                         var i;
                         for (i = 0; i < data.length; i++) {
-                            html += '<option value=' + data[i].id_dokter + '>' + data[i].nama_dokter + '</option>';
+                            keluhan += '<option value=' + data[i].keluhan + '>' + data[i].keluhan + '</option>';
                         }
-                        $('#nama_dokter').html(html);
+                        $('.keluhan').html(keluhan);
+                        for (i = 0; i < data.length; i++) {
+                            poli += '<option value=' + data[i].id_poli + '>' + data[i].nama_poli + '</option>';
+                        }
+                        $('#poli').html(poli);
 
                     }
                 });
@@ -107,7 +135,7 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#nama_pasien').select2({
+            $('select').select2({
                 theme: 'bootstrap4',
             });
         });
