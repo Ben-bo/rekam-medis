@@ -19,7 +19,7 @@ class Pasien_model extends Model
     public function getDataPasien($id_pasien = false)
     {
         if ($id_pasien == false) {
-            return $this->findAll();
+            return $this->orderBy("id_pasien", "DESC")->get()->getResultArray();
         }
         return $this->where(['id_pasien' => $id_pasien])->first();
     }

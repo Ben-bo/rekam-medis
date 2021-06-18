@@ -1,5 +1,9 @@
 <?= $this->extend('layout/template') ?>
 <?= $this->section('content') ?>
+<?php if (session('hak_akses') !== 'admin') : ?>
+    <h1>Konten hanya bisa diakses oleh admin</h1>
+    <?php return 0 ?>
+<?php endif ?>
 <div id="konten">
     <div class="row">
         <div class="col-12">

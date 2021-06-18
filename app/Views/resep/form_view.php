@@ -1,6 +1,10 @@
 <?= $this->extend('layout/template') ?>
 <?= $this->section('content') ?>
 <div id="konten">
+    <?php if (session('hak_akses') !== 'admin' && session('hak_akses') !== 'rekam_medis') : ?>
+        <h1>Konten hanya bisa diakses oleh admin dan bagian rekam medis</h1>
+        <?php return 0 ?>
+    <?php endif ?>
     <div class="row">
         <div class="col-12">
             <div class="card mt-3">
@@ -20,9 +24,6 @@
                                 <div class="mb-3">
                                     <label for="diagnosa" class="form-label">Diagnosa</label>
                                     <input type="text" class="form-control <?= ($validation->hasError('diagnosa')) ? 'is-invalid' : ''; ?>" id="diagnosa" name="diagnosa" <?= ($validation->hasError('diagnosa')) ? 'autofocus' : ''; ?> value="<?= $rekam_medis['anamnese/diagnosa'] ?>" readonly>
-                                    <div id="validationServer03Feedback" class="invalid-feedback">
-                                        <?= $validation->getError('diagnosa'); ?>
-                                    </div>
                                 </div>
                             </div>
                             <div class="col-6">

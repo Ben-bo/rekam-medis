@@ -21,6 +21,10 @@ class Home_model extends Model
     {
         return $this->db->table('obat')->countAll();
     }
+    public function getKunjungan()
+    {
+        return $this->db->table('kunjungan')->countAll();
+    }
     public function getRekam_medis()
     {
         return $this->db->table('rekam_medis')->countAll();

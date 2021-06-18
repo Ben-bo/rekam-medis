@@ -1,6 +1,10 @@
 <?= $this->extend('layout/template') ?>
 <?= $this->section('content') ?>
 <div id="konten">
+    <?php if (session('hak_akses') !== 'admin' && session('hak_akses') !== 'rekam_medis') : ?>
+        <h1>Konten hanya bisa diakses oleh admin dan bagian rekam medis</h1>
+        <?php return 0 ?>
+    <?php endif ?>
     <div class="row">
         <div class="col-12">
             <?php if (session()->GetFlashdata('pesan')) : ?>

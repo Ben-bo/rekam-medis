@@ -1,5 +1,9 @@
 <?= $this->extend('layout/template') ?>
 <?= $this->section('content') ?>
+<?php if (session('hak_akses') !== 'admin') : ?>
+    <h1>Konten hanya bisa diakses oleh admin</h1>
+    <?php return 0 ?>
+<?php endif ?>
 <div id="konten">
     <div class="row">
         <div class="col-12">
@@ -14,12 +18,18 @@
                     <h5 class="card-header mb-2 bg-success text-white">Form Input data</h5>
                     <form action="/poli/add_data" method="post">
                         <div class="mb-3">
-                            <label for="nama_poli" class="form-label">Nama Poli</label>
-                            <input type="text" class="form-control" id="nama_poli" name="nama_poli" placeholder="Nama Poli...">
+                            <label for="nama_poli" class="form-label ">Nama Poli</label>
+                            <input type="text" class="form-control <?= ($validation->hasError('nama_poli')) ? 'is-invalid' : ''; ?>" id="nama_poli" name="nama_poli" placeholder="Nama Poli...">
+                            <div id="validationServer03Feedback" class="invalid-feedback">
+                                <?= $validation->getError('nama_poli'); ?>
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="deskripsi_poli" class="form-label">Deskripsi Poli</label>
-                            <textarea class="form-control" id="deskripsi_poli" name="deskripsi_poli" rows="3"></textarea>
+                            <textarea class="form-control <?= ($validation->hasError('deskripsi_poli')) ? 'is-invalid' : ''; ?>" id="deskripsi_poli" name="deskripsi_poli" rows="3"></textarea>
+                            <div id="validationServer03Feedback" class="invalid-feedback">
+                                <?= $validation->getError('deskripsi_poli'); ?>
+                            </div>
                         </div>
                         <button class="btn btn-success" type="submit"><i class="fas fa-plus"></i> Simpan</button>
                     </form>

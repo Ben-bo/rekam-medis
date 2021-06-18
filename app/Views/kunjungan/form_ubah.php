@@ -1,6 +1,10 @@
 <?= $this->extend('layout/template') ?>
 <?= $this->section('content') ?>
 <div id="konten">
+    <?php if (session('hak_akses') !== 'admin' && session('hak_akses') !== 'pendaftaran') : ?>
+        <h1>Konten hanya bisa diakses oleh admin dan bagian pendaftaran</h1>
+        <?php return 0 ?>
+    <?php endif ?>
     <div class="row">
         <div class="col-12">
             <div class="card mt-3">
@@ -40,9 +44,12 @@
                                         <input type="text" name="nama_pasien" class="form-control " id="nama_pasien" value="<?= $kunjungan['nama_pasien'] ?>" readonly>
                                     </div>
                                 </div>
+
+                            </div>
+                            <div class="col-6">
                                 <div class="mb-3">
                                     <label for="poli" class="form-label">Nama Poli</label>
-                                    <select class="form-select <?= ($validation->hasError('poli')) ? 'is-invalid' : ''; ?>" aria-label="Default select example" name="poli" id="poli" onchange="change()">
+                                    <select class="form-select <?= ($validation->hasError('poli')) ? 'is-invalid' : ''; ?>" aria-label="Default select example" name="poli" id="poli">
                                         <option value="" hidden>PILIH Poli</option>
                                         <?php foreach ($poli as $poli) : ?>
                                             <?php if (old('poli')) : ?>
@@ -66,20 +73,23 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="keluhan" class="form-label">Keluhan</label>
-                                    <textarea class="form-control" name="keluhan" id="exampleFormControlTextarea1" rows="3"><?= $kunjungan['keluhan'] ?> </textarea>
-
+                                    <textarea class="form-control <?= ($validation->hasError('poli')) ? 'is-invalid' : ''; ?>" name="keluhan" id="exampleFormControlTextarea1" rows="3"><?= (old('keluhan')) ? old('keluhan') : $kunjungan['keluhan'] ?>  </textarea>
+                                    <div id="validationServer03Feedback" class="invalid-feedback">
+                                        <?= $validation->getError('keluhan'); ?>
+                                    </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 items-center">
+                                <input class="btn btn-success" type="submit" value="Simpan">
+                                <input class="btn btn-danger" type="reset" value="Reset">
+
                             </div>
                         </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12 items-center">
-                    <input class="btn btn-success" type="submit" value="Simpan">
-                    <input class="btn btn-danger" type="reset" value="Reset">
 
-                </div>
-            </div>
             </form>
 
         </div>

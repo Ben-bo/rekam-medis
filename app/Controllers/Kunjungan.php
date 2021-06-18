@@ -52,6 +52,13 @@ class Kunjungan extends BaseController
         $data = $this->Kunjungan_model->getPasienPoli($id_pasien);
         echo json_encode($data);
     }
+    public function getPoli()
+    {
+
+        $id_pasien = $this->request->getPost('id');
+        $data = $this->Kunjungan_model->getPoli($id_pasien);
+        echo json_encode($data);
+    }
     public function form_ubah($id_kunjungan)
     {
         session();
@@ -66,6 +73,7 @@ class Kunjungan extends BaseController
     }
     public function add_data()
     {
+
         //validasi input tidak kosong
         //jika tidak tervalidasi
         if (!$this->validate([
@@ -81,14 +89,13 @@ class Kunjungan extends BaseController
             'poli' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'sediaan harus diisi '
-
+                    'required' => 'Pilih poli '
                 ]
             ],
             'keluhan' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'dosis anak harus di isi'
+                    'required' => 'Isi keluhan'
 
                 ]
             ],

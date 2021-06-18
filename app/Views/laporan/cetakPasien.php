@@ -11,7 +11,10 @@
 </head>
 
 <body>
-
+    <?php if (session('hak_akses') !== 'admin' && session('hak_akses') !== 'rekam_medis') : ?>
+        <h1>Konten hanya bisa diakses oleh admin dan bagian rekam medis</h1>
+        <?php return 0 ?>
+    <?php endif ?>
     <div class="wrapper">
         <div class="row">
             <div class="col-2">
@@ -53,12 +56,48 @@
                     <div class="col-12">
                         <table class="table table-bordered">
                             <tr>
-                                <td colspan="3" class="text-center">Deskripsi</td>
+                                <td colspan="7" class="text-center">Data Lengkap</td>
 
                             </tr>
                             <tr>
 
+                                <td>Nama</td>
+                                <td>:</td>
+                                <td><?= $pasien['nama_pasien'] ?></td>
 
+                                <td>NoHp</td>
+                                <td>:</td>
+                                <td><?= $pasien['no_hp'] ?></td>
+                            </tr>
+                            <tr>
+
+                                <td>Jenis Kelamin</td>
+                                <td>:</td>
+                                <td><?= $pasien['jenis_kelamin'] ?></td>
+
+                                <td>No KTP</td>
+                                <td>:</td>
+                                <td><?= $pasien['no_ktp'] ?></td>
+                            </tr>
+                            <tr>
+
+                                <td>status pernikahan</td>
+                                <td>:</td>
+                                <td><?= $pasien['status_perkawinan'] ?></td>
+
+                                <td>Pekerjaan</td>
+                                <td>:</td>
+                                <td><?= $pasien['pekerjaan'] ?></td>
+                            </tr>
+                            <tr>
+
+                                <td>Alamat lengkap</td>
+                                <td>:</td>
+                                <td><?= $pasien['alamat'] ?>,<?= $pasien['desa/kelurahan'] ?>,<?= $pasien['kota/kabupaten'] ?></td>
+
+                                <td>TTL</td>
+                                <td>:</td>
+                                <td><?= $pasien['ttl'] ?></td>
                             </tr>
 
                         </table>

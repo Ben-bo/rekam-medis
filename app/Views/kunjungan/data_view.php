@@ -1,6 +1,10 @@
 <?= $this->extend('layout/template') ?>
 <?= $this->section('content') ?>
 <div id="konten">
+    <?php if (session('hak_akses') !== 'admin' && session('hak_akses') !== 'pendaftaran') : ?>
+        <h1>Konten hanya bisa diakses oleh admin dan bagian pendaftaran</h1>
+        <?php return 0 ?>
+    <?php endif ?>
     <div class="row">
         <div class="col-12">
             <?php if (session()->GetFlashdata('pesan')) : ?>
@@ -11,7 +15,7 @@
             <?php endif ?>
             <div class="card mt-3">
                 <div class="card-body">
-                    <h5 class="card-header mb-2 bg-success text-white">Data Obat</h5>
+                    <h5 class="card-header mb-2 bg-success text-white">Data Kunjungan</h5>
                     <table class="table table-hover" id="mytable">
                         <thead>
                             <tr>

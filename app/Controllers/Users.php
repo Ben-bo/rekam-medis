@@ -43,13 +43,7 @@ class Users extends BaseController
             //is_unique=sebuah rule yg mengharuskan isi dari field tidak boleh sama
             //penggunaan is_unique harus beserta nama tabel dan field yg bersangkutan
 
-            'nama' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Nama user harus di isi',
 
-                ]
-            ],
             'hak_akses' => [
                 'rules' => 'required',
                 'errors' => [
@@ -61,6 +55,14 @@ class Users extends BaseController
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'isi Password'
+
+                ]
+            ],
+            'nama_users' => [
+                'rules' => 'required|is_unique[users.nama_users]',
+                'errors' => [
+                    'required' => 'Nama user harus di isi',
+                    'is_unique' => 'Username sudah terdaftar'
 
                 ]
             ],
@@ -117,7 +119,8 @@ class Users extends BaseController
             'validation' => \Config\Services::validation(),
             'hak_akses' => [
                 'admin',
-                'petugas_medis',
+                'rekam_medis',
+                'pendaftaran',
             ]
         ];
         return view('users/form_ubah', $data);
@@ -131,9 +134,10 @@ class Users extends BaseController
             //is_unique=sebuah rule yg mengharuskan isi dari field tidak boleh sama
             //penggunaan is_unique harus beserta nama tabel dan field yg bersangkutan
             'nama_users' => [
-                'rules' => 'required',
+                'rules' => 'required|is_unique[users.nama_users,id_users,' . $id_user . ']',
                 'errors' => [
                     'required' => 'Nama user harus di isi',
+                    'is_unique' => 'Username sudah terdaftar'
 
                 ]
             ],

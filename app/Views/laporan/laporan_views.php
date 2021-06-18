@@ -1,6 +1,10 @@
 <?= $this->extend('layout/template') ?>
 <?= $this->section('content') ?>
 <div id="konten">
+    <?php if (session('hak_akses') !== 'admin' && session('hak_akses') !== 'pendaftaran') : ?>
+        <h1>Konten hanya bisa diakses oleh admin dan bagian pendaftaran</h1>
+        <?php return 0 ?>
+    <?php endif ?>
     <div class="row">
         <div class="col-12">
             <?php if (session()->GetFlashdata('pesan')) : ?>
@@ -10,7 +14,7 @@
                 </div>
             <?php endif ?>
             <div class="card mt-3">
-                <h3 class="card-header mb-2 bg-success text-white text-center">LAPORAN</h3>
+                <h3 class="card-header mb-2 bg-success text-white text-center">LAPORAN KUNJUNGAN</h3>
                 <div class="card-body">
                     <form action="/laporan/filterData/" method="post">
                         <div class="row">
@@ -40,42 +44,13 @@
                                 <div class="wrap">
                                     <div class="wrapDalam">
                                         <table class="table">
-                                            <tr>
-                                                <td>DATA PASIEN </td>
-                                                <td> : </td>
-                                                <td><?= $pasienTotal ?> data </td>
-                                            </tr>
-                                            <tr>
-                                                <td>DATA DOKTER </td>
-                                                <td> : </td>
-                                                <td><?= $dokterTotal ?> data </td>
-                                            </tr>
-                                            <tr>
-                                                <td>DATA OBAT </td>
-                                                <td> : </td>
-                                                <td><?= $obatTotal ?> data </td>
-                                            </tr>
-
-                                        </table>
-                                    </div>
-                                    <div class="wrapDalam">
-                                        <table class="table">
-                                            <tr>
-                                                <td>DATA REKAM MEDIS </td>
-                                                <td> : </td>
-                                                <td><?= $rekam_medisTotal ?> data </td>
-                                            </tr>
-                                            <tr>
-                                                <td>DATA RESEP </td>
-                                                <td> : </td>
-                                                <td><?= $resepTotal ?> data </td>
-                                            </tr>
-                                            <tr>
-                                                <td>DATA POLI </td>
-                                                <td> : </td>
-                                                <td><?= $poliTotal ?> data </td>
-                                            </tr>
-
+                                            <?php foreach ($pasienTotal as $data) : ?>
+                                                <tr>
+                                                    <td><?= $data['nama_pasien'] ?></td>
+                                                    <td> : </td>
+                                                    <td><b><?= $data['total'] ?></b> KUNJUNGAN </td>
+                                                </tr>
+                                            <?php endforeach ?>
                                         </table>
                                     </div>
                                 </div>
@@ -87,6 +62,11 @@
                                             <td> : </td>
                                             <td><?= date_format(new DateTime('today'), 'd-m-Y') ?> </td>
                                         </tr>
+                                        <tr>
+                                            <td>TOTAL DATA</td>
+                                            <td> : </td>
+                                            <td><b><?= $kunjunganTotal ?></b> DATA </td>
+                                        </tr>
                                     </table>
                                 </div>
                             </div>
@@ -95,186 +75,28 @@
                     </div>
                     <div class="card mt-3">
                         <div class="card-body">
-                            <h5 class="card-header mb-2 bg-success text-white">Data Pasien</h5>
+                            <h5 class="card-header mb-2 bg-success text-white">Data Kunjungan</h5>
                             <table class="table table-hover" id="MyTable">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">Nama</th>
-                                        <th scope="col">Jenis Kelamin</th>
-                                        <th scope="col">No KTP</th>
-                                        <th scope="col">Tempat Tanggal Lahir</th>
-                                        <th scope="col">ALamat</th>
-                                        <th scope="col">No HP</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $no = 1 ?>
-                                    <?php foreach ($pasien as $pasien) : ?>
-                                        <tr>
-                                            <td><?= $no++ ?></td>
-                                            <td><?= $pasien['nama_pasien'] ?></td>
-                                            <td><?= $pasien['jenis_kelamin'] ?></td>
-                                            <td><?= $pasien['no_ktp'] ?></td>
-                                            <td><?= $pasien['ttl'] ?></td>
-                                            <td><?= $pasien['alamat'] ?></td>
-                                            <td><?= $pasien['no_hp'] ?></td>
-                                        </tr>
-                                    <?php endforeach ?>
-                                </tbody>
-                            </table>
-
-                        </div>
-                    </div>
-                    <div class="card mt-3">
-                        <div class="card-body">
-                            <h5 class="card-header mb-2 bg-success text-white">Data Dokter</h5>
-                            <table class="table table-hover " id="MyTable">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Nama Dokter</th>
-                                        <th scope="col">Spesialis</th>
-                                        <th scope="col">Jenis Kelmain</th>
-                                        <th scope="col">Tempat Tanggal Lahir </th>
-                                        <th scope="col">NO HP</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Alamat</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $no = 1 ?>
-                                    <?php foreach ($dokter as $dokter) : ?>
-                                        <tr>
-                                            <td><?= $no++ ?></td>
-                                            <td><?= $dokter['nama_dokter'] ?></td>
-                                            <td><?= $dokter['spesialis'] ?></td>
-                                            <td><?= $dokter['jenis_kelamin_dokter'] ?></td>
-                                            <td><?= $dokter['ttl'] ?></td>
-                                            <td><?= $dokter['no_hp_dokter'] ?></td>
-                                            <td><?= $dokter['email'] ?></td>
-                                            <td><?= $dokter['alamat'] ?></td>
-                                        </tr>
-                                    <?php endforeach ?>
-                                </tbody>
-                            </table>
-
-                        </div>
-                    </div>
-                    <div class="card mt-3">
-                        <div class="card-body">
-                            <h5 class="card-header mb-2 bg-success text-white">Data Obat</h5>
-                            <table class="table table-hover " id="MyTable">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Nama Obat</th>
-                                        <th scope="col">Jenis Obat</th>
-                                        <th scope="col">Sediaan</th>
-                                        <th scope="col">Dosis Anak</th>
-                                        <th scope="col">Dosis Dewasa</th>
-                                        <th scope="col">Stok</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $no = 1 ?>
-                                    <?php foreach ($obat as $obat) : ?>
-                                        <tr>
-                                            <td><?= $no++ ?></td>
-                                            <td><?= $obat['nama_obat'] ?></td>
-                                            <td><?= $obat['jenis_obat'] ?></td>
-                                            <td><?= $obat['sediaan'] ?></td>
-                                            <td><?= $obat['dosis_anak'] ?></td>
-                                            <td><?= $obat['dosis_dewasa'] ?></td>
-                                            <td><?= $obat['stok'] ?></td>
-                                        </tr>
-                                    <?php endforeach ?>
-                                </tbody>
-                            </table>
-
-                        </div>
-                    </div>
-                    <div class="card mt-3">
-                        <div class="card-body">
-                            <h5 class="card-header mb-2 bg-success text-white">Data Rekam Medis</h5>
-                            <table class="table table-hover " id="MyTable">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
+                                        <th scope="col">Tanggal</th>
                                         <th scope="col">No Rekam Medis</th>
                                         <th scope="col">Nama Pasien</th>
+                                        <th scope="col">Poli</th>
                                         <th scope="col">Keluhan</th>
-                                        <th scope="col">Anamnese/Diagnosa</th>
-                                        <th scope="col">Dokter</th>
-                                        <th scope="col">Obat</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php $no = 1 ?>
-                                    <?php foreach ($rekam_medis as $rekam_medis) : ?>
+                                    <?php foreach ($kunjungan as $kunjungan) : ?>
                                         <tr>
                                             <td><?= $no++ ?></td>
-                                            <td><?= $rekam_medis['no_rekam_medis'] ?></td>
-                                            <td><?= $rekam_medis['nama_pasien'] ?></td>
-                                            <td><?= $rekam_medis['keluhan'] ?></td>
-                                            <td><?= $rekam_medis['anamnese/diagnosa'] ?></td>
-                                            <td><?= $rekam_medis['nama_dokter'] ?></td>
-                                            <td><?= $rekam_medis['id_obat'] ?></td>
-                                        </tr>
-                                    <?php endforeach ?>
-                                </tbody>
-                            </table>
-
-                        </div>
-                    </div>
-                    <div class="card mt-3">
-                        <div class="card-body">
-                            <h5 class="card-header mb-2 bg-success text-white">Data Poli</h5>
-                            <table class="table table-hover " id="MyTable">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Nama Poli</th>
-                                        <th scope="col">deskripsi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $no = 1 ?>
-                                    <?php foreach ($poli as $poli) : ?>
-                                        <tr>
-                                            <td><?= $no++ ?></td>
-                                            <td><?= $poli['nama_poli'] ?></td>
-                                            <td><?= $poli['deskripsi_poli'] ?></td </tr>
-                                        <?php endforeach ?>
-                                </tbody>
-                            </table>
-
-                        </div>
-                    </div>
-                    <div class="card mt-3">
-                        <div class="card-body">
-                            <h5 class="card-header mb-2 bg-success text-white">Data Resep</h5>
-                            <table class="table table-hover " id="MyTable">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">NO.RM</th>
-                                        <th scope="col">Pasien</th>
-                                        <th scope="col">Diagnosa</th>
-                                        <th scope="col">Dokter</th>
-                                        <th scope="col">Resep</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $no = 1 ?>
-                                    <?php foreach ($resep as $resep) : ?>
-                                        <tr>
-                                            <td><?= $no++ ?></td>
-                                            <td><?= $resep['no_rekam_medis'] ?></td>
-                                            <td><?= $resep['nama_pasien'] ?></td>
-                                            <td><?= $resep['diagnosa'] ?></td>
-                                            <td><?= $resep['dokter'] ?></td>
-                                            <td><?= $resep['resep'] ?></td>
+                                            <td><?= $kunjungan['created_at_kunjungan'] ?></td>
+                                            <td>RM000<?= $kunjungan['id_pasien'] ?></td>
+                                            <td><?= $kunjungan['nama_pasien'] ?></td>
+                                            <td><?= $kunjungan['nama_poli'] ?></td>
+                                            <td><?= $kunjungan['keluhan'] ?></td>
                                         </tr>
                                     <?php endforeach ?>
                                 </tbody>

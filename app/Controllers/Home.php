@@ -14,6 +14,7 @@ class Home extends BaseController
 			'pasien' => $model->getPasien(),
 			'dokter' => $model->getDokter(),
 			'obat' => $model->getObat(),
+			'kunjungan' => $model->getKunjungan(),
 			'rekam_medis' => $model->getRekam_medis(),
 			'poli' => $model->getPoli(),
 			'resep' => $model->getResep(),

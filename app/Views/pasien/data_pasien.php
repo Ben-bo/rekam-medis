@@ -1,6 +1,10 @@
 <?= $this->extend('layout/template') ?>
 <?= $this->section('content') ?>
 <div id="konten">
+    <?php if (session('hak_akses') !== 'admin' && session('hak_akses') !== 'pendaftaran') : ?>
+        <h1>Konten hanya bisa diakses oleh admin dan bagian pendaftaran</h1>
+        <?php return 0 ?>
+    <?php endif ?>
     <div class="row">
         <div class="col-12">
             <?php if (session()->GetFlashdata('pesan')) : ?>
@@ -17,10 +21,11 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
+                                <th scope="col">Tanggal</th>
                                 <th scope="col">Nama Pasien</th>
-                                <th scope="col">Jenis Kelamin</th>
+                                <th scope="col">No rekam Medis</th>
                                 <th scope="col">No Hp</th>
-                                <th scope="col">Alamat</th>
+                                <th scope="col">NIK</th>
                                 <th scope="col">Aksi</th>
                             </tr>
                         </thead>
@@ -29,10 +34,11 @@
                             <?php foreach ($pasien as $pasien) : ?>
                                 <tr>
                                     <th scope="row"><?= $no++ ?></th>
+                                    <td><b><?= date_format(new DateTime('today'), 'Y-m-d') == $pasien['created_at_pasien'] ? 'Hari ini' : $pasien['created_at_pasien'] ?></b></td>
                                     <td><?= $pasien['nama_pasien'] ?></td>
-                                    <td><?= $pasien['jenis_kelamin'] ?></td>
+                                    <td>RM000<?= $pasien['id_pasien'] ?></td>
                                     <td><?= $pasien['no_hp'] ?></td>
-                                    <td><?= $pasien['alamat'] ?></td>
+                                    <td><?= $pasien['no_ktp'] ?></td>
                                     <td>
                                         <a href="/pasien/detail/<?= $pasien['id_pasien']; ?>/" class="btn btn-success text-white"><i class="fas fa-info-circle"></i></a>
                                         <a onclick="return confirm('yakin ingin hapus.?')" href="/pasien/hapus/<?= $pasien['id_pasien']; ?>/" class="btn btn-danger text-white"><i class="fas fa-trash-alt"></i></a>

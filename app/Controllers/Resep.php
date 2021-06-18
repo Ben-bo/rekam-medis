@@ -85,6 +85,21 @@ class Resep extends BaseController
     }
     public function ubah($id_resep)
     {
+        if (!$this->validate([
+            //is_unique=sebuah rule yg mengharuskan isi dari field tidak boleh sama
+            //penggunaan is_unique harus beserta nama tabel dan field yg bersangkutan
+            'resep' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'resep harus diisi'
+
+                ]
+            ],
+        ])) {
+            //jika kondisi di atas terpenuhi maka
+            // ketika redirect ke formtambah bawa inputan dan pesan validasinya(di simpan di session)
+            return redirect()->to('/resep/resep/' . $id_resep . '')->withInput();
+        }
         $this->resepM->save([
             'id_resep' => $id_resep,
             'no_rekam_medis' => $this->request->getVar('no_rekam_medis'),

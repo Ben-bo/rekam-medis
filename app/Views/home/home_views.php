@@ -9,7 +9,7 @@
 
             </div>
         </div>
-        <?php if (session('hak_akses') == 'petugas_medis') : ?>
+        <?php if (session('hak_akses') == 'pendaftaran') : ?>
             <div class="col-sm-12 col-md-6 col-lg-4">
                 <div class="mt-5 bg-light py-3 konten-card">
                     <div class="row">
@@ -36,17 +36,16 @@
                     <div class="row">
                         <div class="col-4  text-muted">
                             <div class="container-fluid">
-                                <a href="/rekam_medis/">
-
-                                    <i class="fas fa-file-medical-alt fa-4x text-success"></i>
+                                <a href="/kunjungan/">
+                                    <i class="fas fa-receipt fa-4x text-success"></i>
                                 </a>
                             </div>
                         </div>
                         <div class="col-8">
                             <div class="container-fluid">
-                                <a href="/rekam_medis/">
-                                    <h4 class="">Rekam Medis</h4>
-                                    <h4 class="text-success"><?= $rekam_medis ?></h4>
+                                <a href="/kunjungan/">
+                                    <h4 class="">kunjungan</h4>
+                                    <h4 class="text-success"><?= $kunjungan ?></h4>
                                 </a>
                             </div>
                         </div>
@@ -58,22 +57,23 @@
                     <div class="row">
                         <div class="col-4  text-muted">
                             <div class="container-fluid">
-                                <a href="/obat/">
+                                <a href="/pasien/form_pasien/">
                                     <i class="fas fa-receipt fa-4x text-success"></i>
                                 </a>
                             </div>
                         </div>
                         <div class="col-8">
                             <div class="container-fluid">
-                                <a href="/poli/">
-                                    <h4 class="">Resep</h4>
-                                    <h4 class="text-success"><?= $resep ?></h4>
+                                <a href="/pasien/form_pasien/">
+                                    <h4 class="">Pendaftaran Pasien</h4>
+                                    <h6 class="text-muted">Form Pendaftaran Pasien, Klik jika ingin menambahkan data pasien baru</h6>
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         <?php endif ?>
         <?php if (session('hak_akses') === 'admin') : ?>
             <div class="col-sm-12 col-md-6 col-lg-4 ">
@@ -123,7 +123,7 @@
                     <div class="row">
                         <div class="col-4  text-muted">
                             <div class="container-fluid">
-                                <a href="/obat/">
+                                <a href="/poli/">
                                     <i class="fas fa-hand-holding-medical fa-4x text-success"></i>
                                 </a>
                             </div>
@@ -140,6 +140,51 @@
                 </div>
             </div>
 
+        <?php endif ?>
+
+        <?php if (session('hak_akses') == 'rekam_medis') : ?>
+            <div class="col-sm-12 col-md-6 col-lg-4 ">
+                <div class="mt-5 bg-light py-3 konten-card">
+                    <div class="row">
+                        <div class="col-4  text-muted">
+                            <div class="container-fluid">
+                                <a href="/rekam_medis/">
+                                    <i class="fas fa-file-medical-alt fa-4x text-success"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="container-fluid">
+                                <a href="/rekam_medis/">
+                                    <h4 class="">Rekam Medis</h4>
+                                    <h4 class="text-success"><?= $rekam_medis ?></h4>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4 ">
+                <div class="mt-5 bg-light py-3 konten-card">
+                    <div class="row">
+                        <div class="col-4  text-muted">
+                            <div class="container-fluid">
+                                <a href="/resep/">
+                                    <i class="fas fa-receipt fa-4x text-success"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="container-fluid">
+                                <a href="/resep/">
+                                    <h4 class="">Resep</h4>
+                                    <h4 class="text-success"><?= $resep ?></h4>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         <?php endif ?>
     </div>
     <hr class="mt-4">
@@ -173,7 +218,28 @@
                     <div class="row">
                         <div class="col-4  text-muted">
                             <div class="container-fluid">
-                                <a href="/dokter/form_dokter/">
+                                <a href="/laporan/laporanPasien">
+                                    <i class="fas fa-file fa-4x text-success"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="container-fluid">
+                                <a href="/laporan/laporanPasien">
+                                    <h4 class="">Laporan Medis Pasien</h4>
+                                    <h6 class="text-muted">Buat Laporan Medis Aplikasi Rekam Medis</h6>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4 ">
+                <div class="mt-2 bg-light py-3 konten-card">
+                    <div class="row">
+                        <div class="col-4  text-muted">
+                            <div class="container-fluid">
+                                <a href="/laporan">
                                     <i class="fas fa-file fa-4x text-success"></i>
                                 </a>
                             </div>
@@ -181,8 +247,50 @@
                         <div class="col-8">
                             <div class="container-fluid">
                                 <a href="/laporan">
-                                    <h4 class="">Laporan</h4>
-                                    <h6 class="text-muted">Buat Laporan Bulanan Aplikasi Rekam Medis</h6>
+                                    <h4 class="">Laporan Kunjungan</h4>
+                                    <h6 class="text-muted">Buat Laporan Kunjungan Pasien</h6>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4 ">
+                <div class="mt-2 bg-light py-3 konten-card">
+                    <div class="row">
+                        <div class="col-4  text-muted">
+                            <div class="container-fluid">
+                                <a href="/laporan/laporanPoli">
+                                    <i class="fas fa-file fa-4x text-success"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="container-fluid">
+                                <a href="/laporan/laporanPoli">
+                                    <h4 class="">Laporan Data Poli</h4>
+                                    <h6 class="text-muted">Buat Laporan Poli Rekam Medis</h6>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4 ">
+                <div class="mt-2 bg-light py-3 konten-card">
+                    <div class="row">
+                        <div class="col-4  text-muted">
+                            <div class="container-fluid">
+                                <a href="/users">
+                                    <i class="fas fa-users fa-4x text-success"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="container-fluid">
+                                <a href="/users">
+                                    <h4 class="">User</h4>
+                                    <h6 class="text-muted">Kelola Data User atau buat Akun baru</h6>
                                 </a>
                             </div>
                         </div>
@@ -201,9 +309,9 @@
                         </div>
                         <div class="col-8">
                             <div class="container-fluid">
-                                <a href="/users">
-                                    <h4 class="">User</h4>
-                                    <h6 class="text-muted">Kelola Data User atau buat Akun baru</h6>
+                                <a href="/backup">
+                                    <h4 class="">BackUp</h4>
+                                    <h6 class="text-muted">Backup data pasien</h6>
                                 </a>
                             </div>
                         </div>

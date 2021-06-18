@@ -13,37 +13,15 @@ use DateTime;
 
 class Laporan extends BaseController
 {
-    protected $pasienM;
-    protected $dokterM;
-    protected $rekamM;
-    protected $obatM;
-    protected $poliM;
-    protected $resepM;
-    function __construct()
-    {
-        $this->pasienM = new Pasien_model();
-        $this->dokterM = new Dokter_model();
-        $this->rekamM = new Rekam_medis_model();
-        $this->obatM = new Obat_model();
-        $this->poliM = new Poli_model();
-        $this->resepM = new Resep_model();
-    }
     public function index($bulan = false, $tahun = false)
     {
+        $kunjunganM = new Kunjungan_model();
+        $totalPasien = $kunjunganM->pasienTotal();
         $data = [
             'judul' => 'Laporan',
-            'pasien' => $this->pasienM->getDataPasien(),
-            'dokter' => $this->dokterM->getDataDokter(),
-            'obat' => $this->obatM->getDataObat(),
-            'poli' => $this->poliM->getDataPoli(),
-            'resep' => $this->resepM->getDataResep(),
-            'rekam_medis' => $this->rekamM->getDataRekamMedis(),
-            'pasienTotal' => $this->pasienM->countAllResults(),
-            'dokterTotal' => $this->dokterM->countAllResults(),
-            'rekam_medisTotal' => $this->rekamM->countAllResults(),
-            'obatTotal' => $this->obatM->countAllResults(),
-            'poliTotal' => $this->poliM->countAllResults(),
-            'resepTotal' => $this->resepM->countAllResults(),
+            'kunjungan' => $kunjunganM->getDataKunjungan(),
+            'kunjunganTotal' => $kunjunganM->kunjunganTotal(),
+            'pasienTotal' => $totalPasien,
             'bulan' => $bulan,
             'tahun' => $tahun,
 
@@ -57,26 +35,13 @@ class Laporan extends BaseController
         $tanggal = $this->request->getVar('tanggal');
         $tahun =  date_format(new DateTime($tanggal), "Y");
         $bulan = date_format(new DateTime($tanggal), "m");
-        $pasien = $model->filterPasien($bulan, $tahun);
-        $dokter = $model->filterDokter($bulan, $tahun);
-        $obat = $model->filterObat($bulan, $tahun);
-        $poli = $model->filterPoli($bulan, $tahun);
-        $resep = $model->filterResep($bulan, $tahun);
-        $rekam_medis = $model->filterRekamMedis($bulan, $tahun);
+        $kunjungan = $model->filterKunjungan($bulan, $tahun);
+        $totalPasienKunjungan = $model->totalPasienKunjungan($bulan, $tahun);
         $data = [
             'judul' => 'Laporan',
-            'pasien' => $pasien,
-            'dokter' => $dokter,
-            'obat' => $obat,
-            'resep' => $resep,
-            'poli' => $poli,
-            'rekam_medis' => $rekam_medis,
-            'pasienTotal' => $model->totalPasien($bulan, $tahun),
-            'dokterTotal' => $model->totalDokter($bulan, $tahun),
-            'obatTotal' => $model->totalObat($bulan, $tahun),
-            'rekam_medisTotal' => $model->totalRM($bulan, $tahun),
-            'poliTotal' => $model->totalPoli($bulan, $tahun),
-            'resepTotal' => $model->totalResep($bulan, $tahun),
+            'kunjungan' => $kunjungan,
+            'kunjunganTotal' => $model->totalkunjungan($bulan, $tahun),
+            'pasienTotal' => $totalPasienKunjungan,
             'bulan' => $bulan,
             'tahun' => $tahun,
         ];
@@ -85,57 +50,30 @@ class Laporan extends BaseController
 
     public function cetakData($bulan = false, $tahun = false)
     {
-        $tanggal = new DateTime('today');
+        $kunjunganM = new Kunjungan_model();
         $model = new Rekam_medis_model();
+        $totalPasienKunjungan = $model->totalPasienKunjungan($bulan, $tahun);
+        $totalPasien = $kunjunganM->pasienTotal();
         if ($bulan && $tahun == true) {
-
-            $pasien = $model->filterPasien($bulan, $tahun);
-            $dokter = $model->filterDokter($bulan, $tahun);
-            $obat = $model->filterObat($bulan, $tahun);
-            $poli = $model->filterPoli($bulan, $tahun);
-            $resep = $model->filterResep($bulan, $tahun);
-            $rekam_medis = $model->filterRekamMedis($bulan, $tahun);
+            $kunjungan = $model->filterKunjungan($bulan, $tahun);
             $data = [
                 'judul' => 'Laporan',
-                'pasien' => $pasien,
-                'dokter' => $dokter,
-                'obat' => $obat,
-                'poli' => $poli,
-                'resep' => $resep,
-                'rekam_medis' => $rekam_medis,
-                'pasienTotal' => $model->totalPasien($bulan, $tahun),
-                'dokterTotal' => $model->totalDokter($bulan, $tahun),
-                'obatTotal' => $model->totalObat($bulan, $tahun),
-                'rekam_medisTotal' => $model->totalRM($bulan, $tahun),
-                'poliTotal' => $model->totalPoli($bulan, $tahun),
-                'resepTotal' => $model->totalResep($bulan, $tahun),
+                'kunjungan' => $kunjungan,
+                'kunjunganTotal' => $model->totalkunjungan($bulan, $tahun),
+                'pasienTotal' => $totalPasienKunjungan,
 
             ];
             return view('laporan/cetak_views', $data);
         }
         $data = [
             'judul' => 'kosong',
-            'pasien' => $this->pasienM->getDataPasien(),
-            'dokter' => $this->dokterM->getDataDokter(),
-            'obat' => $this->obatM->getDataObat(),
-            'poli' => $this->poliM->getDataPoli(),
-            'resep' => $this->resepM->getDataResep(),
-            'rekam_medis' => $this->rekamM->getDataRekamMedis(),
-            'pasienTotal' => $this->pasienM->countAllResults(),
-            'dokterTotal' => $this->dokterM->countAllResults(),
-            'rekam_medisTotal' => $this->rekamM->countAllResults(),
-            'obatTotal' => $this->obatM->countAllResults(),
-            'poliTotal' => $this->poliM->countAllResults(),
-            'resepTotal' => $this->resepM->countAllResults(),
+            'kunjungan' => $kunjunganM->getDataKunjungan(),
+            'kunjunganTotal' => $kunjunganM->kunjunganTotal(),
+            'pasienTotal' => $totalPasien,
+
 
         ];
         return view('laporan/cetak_views', $data);
-    }
-    public function lap()
-    {
-        $model = new Rekam_medis_model();
-        $data = $model->lapp();
-        dd($data);
     }
 
     public function laporanPoli()
@@ -150,8 +88,6 @@ class Laporan extends BaseController
     public function cetakPoli($id_poli)
     {
         $poliM = new Poli_model();
-        $kunjunganM = new Kunjungan_model();
-        $dokterM = new Dokter_model();
         $rekam_medisM = new Rekam_medis_model();
         $data = [
             'poli' => $poliM->getDataPoli($id_poli),

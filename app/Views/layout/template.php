@@ -78,7 +78,7 @@
                             namaPasien += '<option value=' + data[i].id_pasien + '>' + data[i].nama_pasien + '</option>';
                         }
                         for (i = 0; i < data.length; i++) {
-                            keluhan += "<option value=' " + data[i].keluhan + "'>" + data[i].keluhan + "</option>";
+                            keluhan += '<option value=' + data[i].id_kunjungan + '>' + data[i].keluhan + '</option>';
                         }
                         for (i = 0; i < data.length; i++) {
                             poli += '<option value=' + data[i].id_poli + '>' + data[i].nama_poli + '</option>';
@@ -120,6 +120,34 @@
 
         });
     </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $('.keluhan').change(function() {
+                var id = $(this).val();
+                $.ajax({
+                    url: "<?php echo base_url('kunjungan/getPoli'); ?>",
+                    method: "POST",
+                    data: {
+                        id: id
+                    },
+                    async: true,
+                    dataType: 'json',
+                    success: function(data) {
+                        var poli = '';
+                        var i;
+                        for (i = 0; i < data.length; i++) {
+                            poli += '<option value=' + data[i].id_poli + '>' + data[i].nama_poli + '</option>';
+                        }
+                        $('#poli').html(poli);
+
+                    }
+                });
+                return false;
+            });
+
+        });
+    </script>
 
 
     <!-- file sampul preview -->
@@ -148,6 +176,7 @@
             });
         });
     </script>
+
 
 
 

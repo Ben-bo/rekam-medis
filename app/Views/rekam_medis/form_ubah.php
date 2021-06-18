@@ -1,6 +1,10 @@
 <?= $this->extend('layout/template') ?>
 <?= $this->section('content') ?>
 <div id="konten">
+    <?php if (session('hak_akses') !== 'admin' && session('hak_akses') !== 'rekam_medis') : ?>
+        <h1>Konten hanya bisa diakses oleh admin dan bagian rekam medis</h1>
+        <?php return 0 ?>
+    <?php endif ?>
     <div class="row">
         <div class="col-12">
             <?php if (session()->GetFlashdata('pesan')) : ?>
@@ -28,18 +32,18 @@
                                 <div class="mb-3">
                                     <label for="keluhan" class="form-label">Keluhan</label>
                                     <select class="form-select keluhan <?= ($validation->hasError('keluhan')) ? 'is-invalid' : ''; ?>" aria-label="Default select example" name="keluhan" id="keluhan">
-                                        <?php foreach ($pasienPoli1 as $pasienPoli) : ?>
+                                        <?php foreach ($pasienPoli as $pasienPoli) : ?>
                                             <?php if (old('keluhan')) : ?>
-                                                <?php if ($pasienPoli['keluhan'] === old('keluhan')) : ?>
-                                                    <option selected value="<?= $pasienPoli['keluhan'] ?>"><?= $pasienPoli['keluhan'] ?></option>
+                                                <?php if ($pasienPoli['id_kunjungan'] === old('keluhan')) : ?>
+                                                    <option selected value="<?= $pasienPoli['id_kunjungan'] ?>"><?= $pasienPoli['keluhan'] ?></option>
                                                 <?php else : ?>
-                                                    <option value="<?= $pasienPoli['keluhan'] ?>"><?= $pasienPoli['keluhan'] ?></option>
+                                                    <option value="<?= $pasienPoli['id_kunjungan'] ?>"><?= $pasienPoli['keluhan'] ?></option>
                                                 <?php endif ?>
                                             <?php else : ?>
-                                                <?php if ($rekam_medis1['keluhan'] === $pasienPoli['keluhan']) : ?>
-                                                    <option selected value="<?= $pasienPoli['keluhan'] ?>"><?= $pasienPoli['keluhan'] ?></option>
+                                                <?php if ($rekam_medis['id_kunjungan'] === $pasienPoli['id_kunjungan']) : ?>
+                                                    <option selected value="<?= $pasienPoli['id_kunjungan'] ?>"><?= $pasienPoli['keluhan'] ?></option>
                                                 <?php else : ?>
-                                                    <option value="<?= $pasienPoli['keluhan'] ?>"><?= $pasienPoli['keluhan'] ?></option>
+                                                    <option value="<?= $pasienPoli['id_kunjungan'] ?>"><?= $pasienPoli['keluhan'] ?></option>
                                                 <?php endif ?>
 
                                             <?php endif ?>
@@ -47,94 +51,6 @@
                                     </select>
                                     <div id="validationServer03Feedback" class="invalid-feedback">
                                         <?= $validation->getError('keluhan'); ?>
-                                    </div>
-                                </div>
-                                <div class="mt-5 text-center">
-                                    <input class="btn btn-success" type="submit" value="UBAH">
-                                    <input class="btn btn-danger" type="button" value="Reset" onclick="return window.location.reload()">
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="mb-3">
-                                    <label for="exampleFormControlTextarea1" class="form-label">Nama Obat</label>
-                                    <div>
-                                        <select class="form-select <?= ($validation->hasError('nama_obat')) ? 'is-invalid' : ''; ?>" name="nama_obat" id="obat">
-                                            <option selected hidden value="">Pilih obat</option>
-                                            <?php foreach ($obat2 as $obat) : ?>
-                                                <?php if (old('nama_obat')) : ?>
-                                                    <?php if ($obat['nama_obat'] === old('nama_obat')) : ?>
-                                                        <option selected value="<?= $obat['nama_obat'] ?>"><?= $obat['nama_obat'] ?></option>
-                                                    <?php else : ?>
-                                                        <option value="<?= $obat['nama_obat'] ?>"><?= $obat['nama_obat'] ?></option>
-                                                    <?php endif ?>
-                                                <?php else : ?>
-                                                    <?php if ($namaObatRM0 === $obat['nama_obat']) : ?>
-                                                        <option selected value="<?= $obat['nama_obat'] ?>"><?= $obat['nama_obat'] ?></option>
-                                                    <?php else : ?>
-                                                        <option value="<?= $obat['nama_obat'] ?>"><?= $obat['nama_obat'] ?></option>
-                                                    <?php endif ?>
-
-                                                <?php endif ?>
-                                            <?php endforeach; ?>
-                                        </select>
-                                        <div id="validationServer03Feedback" class="invalid-feedback">
-                                            <?= $validation->getError('nama_obat'); ?>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <select class="form-select mt-1 <?= ($validation->hasError('nama_obat1')) ? 'is-invalid' : ''; ?>" name="nama_obat1" id="obat">
-                                            <option selected hidden value="">Pilih obat</option>
-                                            <?php foreach ($obat1 as $obat) : ?>
-                                                <?php if (old('nama_obat1')) : ?>
-                                                    <?php if ($obat['nama_obat'] === old('nama_obat1')) : ?>
-                                                        <option selected value="<?= $obat['nama_obat'] ?>"><?= $obat['nama_obat'] ?></option>
-                                                    <?php else : ?>
-                                                        <option value="<?= $obat['nama_obat'] ?>"><?= $obat['nama_obat'] ?></option>
-                                                    <?php endif ?>
-                                                <?php else : ?>
-                                                    <?php if ($namaObatRM1 === $obat['nama_obat']) : ?>
-                                                        <option selected value="<?= $obat['nama_obat'] ?>"><?= $obat['nama_obat'] ?></option>
-                                                    <?php else : ?>
-                                                        <option value="<?= $obat['nama_obat'] ?>"><?= $obat['nama_obat'] ?></option>
-                                                    <?php endif ?>
-                                                <?php endif ?>
-                                            <?php endforeach; ?>
-                                        </select>
-                                        <div id="validationServer03Feedback" class="invalid-feedback">
-                                            <?= $validation->getError('nama_obat1'); ?>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <select class="form-select mt-1 <?= ($validation->hasError('nama_obat2')) ? 'is-invalid' : ''; ?>" name="nama_obat2" id="obat">
-                                            <option selected hidden value="">Pilih obat</option>
-                                            <?php foreach ($obat2 as $obat) : ?>
-                                                <?php if (old('nama_obat2')) : ?>
-                                                    <?php if ($obat['nama_obat'] === old('nama_obat2')) : ?>
-                                                        <option selected value="<?= $obat['nama_obat'] ?>"><?= $obat['nama_obat'] ?></option>
-                                                    <?php else : ?>
-                                                        <option value="<?= $obat['nama_obat'] ?>"><?= $obat['nama_obat'] ?></option>
-                                                    <?php endif ?>
-                                                <?php else : ?>
-                                                    <?php if ($namaObatRM2 === $obat['nama_obat']) : ?>
-                                                        <option selected value="<?= $obat['nama_obat'] ?>"><?= $obat['nama_obat'] ?></option>
-                                                    <?php else : ?>
-                                                        <option value="<?= $obat['nama_obat'] ?>"><?= $obat['nama_obat'] ?></option>
-                                                    <?php endif ?>
-                                                <?php endif ?>
-                                            <?php endforeach; ?>
-                                        </select>
-                                        <div id="validationServer03Feedback" class="invalid-feedback">
-                                            <?= $validation->getError('nama_obat2'); ?>
-                                        </div>
-                                    </div>
-
-
-                                </div>
-                                <div class="mb-3">
-                                    <label for="anamnese/diagnosa" class="form-label">Anamnese/Diagnosa</label>
-                                    <input type="text" class="form-control <?= ($validation->hasError('anamnese/diagnosa')) ? 'is-invalid' : ''; ?>" id="exampleFormControlInput1" name="anamnese/diagnosa" <?= ($validation->hasError('anamnese/diagnosa')) ? 'autofocus' : ''; ?> value="<?= (old('anamnese/diagnosa')) ? old('anamnese/diagnosa') : $rekam_medis['anamnese/diagnosa']; ?>">
-                                    <div id="validationServer03Feedback" class="invalid-feedback">
-                                        <?= $validation->getError('anamnese/diagnosa'); ?>
                                     </div>
                                 </div>
                                 <div class="mb-3">
@@ -155,6 +71,90 @@
                                     </div>
 
                                 </div>
+                                <div class="mt-5 text-center">
+
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-1">
+                                    <label for="exampleFormControlTextarea1" class="form-label">Nama Obat</label>
+                                    <select class="form-select <?= ($validation->hasError('nama_obat')) ? 'is-invalid' : ''; ?>" name="nama_obat" id="obat">
+                                        <option selected hidden value="">Pilih obat</option>
+                                        <?php foreach ($obat2 as $obat) : ?>
+                                            <?php if (old('nama_obat')) : ?>
+                                                <?php if ($obat['nama_obat'] === old('nama_obat')) : ?>
+                                                    <option selected value="<?= $obat['nama_obat'] ?>"><?= $obat['nama_obat'] ?></option>
+                                                <?php else : ?>
+                                                    <option value="<?= $obat['nama_obat'] ?>"><?= $obat['nama_obat'] ?></option>
+                                                <?php endif ?>
+                                            <?php else : ?>
+                                                <?php if ($namaObatRM0 === $obat['nama_obat']) : ?>
+                                                    <option selected value="<?= $obat['nama_obat'] ?>"><?= $obat['nama_obat'] ?></option>
+                                                <?php else : ?>
+                                                    <option value="<?= $obat['nama_obat'] ?>"><?= $obat['nama_obat'] ?></option>
+                                                <?php endif ?>
+
+                                            <?php endif ?>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <div id="validationServer03Feedback" class="invalid-feedback">
+                                        <?= $validation->getError('nama_obat'); ?>
+                                    </div>
+                                </div>
+                                <div class="mb-1">
+                                    <select class="form-select mt-1 <?= ($validation->hasError('nama_obat1')) ? 'is-invalid' : ''; ?>" name="nama_obat1" id="obat1">
+                                        <option selected hidden value="">Pilih obat</option>
+                                        <?php foreach ($obat1 as $obat) : ?>
+                                            <?php if (old('nama_obat1')) : ?>
+                                                <?php if ($obat['nama_obat'] === old('nama_obat1')) : ?>
+                                                    <option selected value="<?= $obat['nama_obat'] ?>"><?= $obat['nama_obat'] ?></option>
+                                                <?php else : ?>
+                                                    <option value="<?= $obat['nama_obat'] ?>"><?= $obat['nama_obat'] ?></option>
+                                                <?php endif ?>
+                                            <?php else : ?>
+                                                <?php if ($namaObatRM1 === $obat['nama_obat']) : ?>
+                                                    <option selected value="<?= $obat['nama_obat'] ?>"><?= $obat['nama_obat'] ?></option>
+                                                <?php else : ?>
+                                                    <option value="<?= $obat['nama_obat'] ?>"><?= $obat['nama_obat'] ?></option>
+                                                <?php endif ?>
+                                            <?php endif ?>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <div id="validationServer03Feedback" class="invalid-feedback">
+                                        <?= $validation->getError('nama_obat1'); ?>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <select class="form-select mt-1 <?= ($validation->hasError('nama_obat2')) ? 'is-invalid' : ''; ?>" name="nama_obat2" id="obat2">
+                                        <option selected hidden value="">Pilih obat</option>
+                                        <?php foreach ($obat2 as $obat) : ?>
+                                            <?php if (old('nama_obat2')) : ?>
+                                                <?php if ($obat['nama_obat'] === old('nama_obat2')) : ?>
+                                                    <option selected value="<?= $obat['nama_obat'] ?>"><?= $obat['nama_obat'] ?></option>
+                                                <?php else : ?>
+                                                    <option value="<?= $obat['nama_obat'] ?>"><?= $obat['nama_obat'] ?></option>
+                                                <?php endif ?>
+                                            <?php else : ?>
+                                                <?php if ($namaObatRM2 === $obat['nama_obat']) : ?>
+                                                    <option selected value="<?= $obat['nama_obat'] ?>"><?= $obat['nama_obat'] ?></option>
+                                                <?php else : ?>
+                                                    <option value="<?= $obat['nama_obat'] ?>"><?= $obat['nama_obat'] ?></option>
+                                                <?php endif ?>
+                                            <?php endif ?>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <div id="validationServer03Feedback" class="invalid-feedback">
+                                        <?= $validation->getError('nama_obat2'); ?>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="anamnese/diagnosa" class="form-label">Anamnese/Diagnosa</label>
+                                    <input type="text" class="form-control <?= ($validation->hasError('anamnese/diagnosa')) ? 'is-invalid' : ''; ?>" id="exampleFormControlInput1" name="anamnese/diagnosa" <?= ($validation->hasError('anamnese/diagnosa')) ? 'autofocus' : ''; ?> value="<?= (old('anamnese/diagnosa')) ? old('anamnese/diagnosa') : $rekam_medis['anamnese/diagnosa']; ?>">
+                                    <div id="validationServer03Feedback" class="invalid-feedback">
+                                        <?= $validation->getError('anamnese/diagnosa'); ?>
+                                    </div>
+                                </div>
+
                                 <div class="mb-3">
                                     <label for="nama_dokter" class="form-label">Nama Dokter</label>
                                     <select class="form-select " aria-label="Default select example" name="nama_dokter" id="nama_dokter">
@@ -167,6 +167,12 @@
                                         <?php endforeach ?>
                                     </select>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 items-center">
+                                <input class="btn btn-success" type="submit" value="UBAH">
+                                <input class="btn btn-danger" type="button" value="Reset" onclick="return window.location.reload()">
                             </div>
                         </div>
                     </form>
@@ -190,14 +196,14 @@
                                 <tr>
                                     <td><?= $no++ ?></td>
                                     <td><b><?= date_format(new DateTime('today'), 'Y-m-d') == $dataRekamMedis['created_at_rm'] ? 'Hari ini' : $dataRekamMedis['created_at_rm'] ?></b></td>
-                                    <td><?= $dataRekamMedis['no_rekam_medis'] ?></td>
+                                    <td>RM000<?= $dataRekamMedis['no_rekam_medis'] ?></td>
                                     <td><?= $dataRekamMedis['nama_pasien'] ?></td>
 
                                     <td><?= $dataRekamMedis['anamnese/diagnosa'] ?></td>
                                     <td id="bot">
-                                        <a href="/rekam_medis/detail_rm/<?= $rekam_medis['id']; ?>/<?= $rekam_medis['id_pasien']; ?>/" class="btn btn-success text-white"><i class="fas fa-info-circle"></i> Detail</a>
-                                        <a onclick="return confirm('yakin ingin hapus.?')" href="/rekam_medis/hapus/<?= $rekam_medis['id']; ?>/" class="btn btn-danger text-white"><i class="fas fa-trash-alt"></i></a>
-
+                                        <a href="/rekam_medis/detail_rm/<?= $dataRekamMedis['id']; ?>/<?= $dataRekamMedis['id_pasien']; ?>/" class="btn btn-success text-white"><i class="fas fa-info-circle"></i> Detail</a>
+                                        <a href="/rekam_medis/form_ubah/<?= $dataRekamMedis['id'] ?>/<?= $dataRekamMedis['id_pasien'] ?> " class="btn btn-success text-white"><i class="fas fa-edit"></i> Ubah</a>
+                                        <a onclick="return confirm('yakin ingin hapus.?')" href="/rekam_medis/hapus/<?= $dataRekamMedis['id']; ?>/" class="btn btn-danger text-white"><i class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
                             <?php endforeach ?>

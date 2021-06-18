@@ -36,6 +36,8 @@ class Rekam_medis extends BaseController
             'judul' => 'Rekam-Medis',
             'rekam_medis' => $this->Rekam_medis_model->getDataRekamMedis(),
             'pasien' => $this->pasienM->getDataPasien(),
+            'pasien1' => $this->pasienM->getDataPasien(),
+            'kunjungan' => $this->kunjunganM->getDataKunjungan(),
             'dokter' => $this->dokterM->getDataDokter(),
             'obat' => $this->obatM->getDataObat(),
             'obat1' => $this->obatM->getDataObat(),
@@ -69,6 +71,13 @@ class Rekam_medis extends BaseController
             if (!$this->validate([
                 // is_unique=sebuah rule yg mengharuskan isi dari field tidak boleh sama
                 // penggunaan is_unique harus beserta nama tabel dan field yg bersangkutan
+                'no_rm' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Pilih No Rekam Medis',
+
+                    ]
+                ],
                 'nama_pasien' => [
                     'rules' => 'required',
                     'errors' => [
@@ -135,6 +144,13 @@ class Rekam_medis extends BaseController
             if (!$this->validate([
                 // is_unique=sebuah rule yg mengharuskan isi dari field tidak boleh sama
                 // penggunaan is_unique harus beserta nama tabel dan field yg bersangkutan
+                'no_rm' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Pilih No Rekam Medis',
+
+                    ]
+                ],
                 'nama_pasien' => [
                     'rules' => 'required',
                     'errors' => [
@@ -183,7 +199,7 @@ class Rekam_medis extends BaseController
         $this->Rekam_medis_model->save([
             'no_rekam_medis' => $this->request->getVar('no_rm'),
             'id_pasien' => $this->request->getVar('nama_pasien'),
-            'keluhan' => $this->request->getVar('keluhan'),
+            'id_kunjungan' => $this->request->getVar('keluhan'),
             'anamnese/diagnosa' => $this->request->getVar('anamnese/diagnosa'),
             'id_poli' => $this->request->getVar('poli'),
             'id_dokter' => $this->request->getVar('nama_dokter'),
@@ -203,7 +219,7 @@ class Rekam_medis extends BaseController
     public function cetak($id, $id_pasien)
     {
         $data  = [
-            'judul' => 'Catan Rekam Medis',
+            'judul' => 'Catat Rekam Medis',
             'rekam_medis' => $this->Rekam_medis_model->getDataRekamMedis($id),
             'history' => $this->Rekam_medis_model->getDataRM($id_pasien),
 
@@ -215,7 +231,6 @@ class Rekam_medis extends BaseController
     {
         $obat = $this->Rekam_medis_model->namaObatRM($id);
         $obat = explode(",", $obat);
-
         session();
         $data = $this->Rekam_medis_model->idPoli($id);
         $pasienPoli = $this->kunjunganM->getPasienPoli($id_pasien);
@@ -223,9 +238,7 @@ class Rekam_medis extends BaseController
         $data = [
             'judul' => 'Form Ubah',
             'rekam_medis' => $this->Rekam_medis_model->getDataRekamMedis($id),
-            'rekam_medis1' => $this->Rekam_medis_model->getDataRekamMedis($id),
             'pasienPoli' => $pasienPoli,
-            'pasienPoli1' => $pasienPoli,
             'pasien' => $this->pasienM->getDataPasien(),
             'dokter' => $this->dokterM->getDataDokter(),
             'namaObatRM0' => $obat[0],
@@ -249,7 +262,6 @@ class Rekam_medis extends BaseController
         $obat = $this->request->getVar('nama_obat');
         $obat1 = $this->request->getVar('nama_obat1');
         $obat2 = $this->request->getVar('nama_obat2');
-
         $Obatarr = '' . $obat . ',' . $obat1 . ',' . $obat2 . '';
 
         //validasi input tidak kosong
@@ -260,12 +272,10 @@ class Rekam_medis extends BaseController
         if (!$this->validate([
             // is_unique=sebuah rule yg mengharuskan isi dari field tidak boleh sama
             // penggunaan is_unique harus beserta nama tabel dan field yg bersangkutan
-
             'anamnese/diagnosa' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'Isi Diagnosa'
-
                 ]
             ],
 
@@ -279,12 +289,11 @@ class Rekam_medis extends BaseController
             'id' => $id,
             'no_rekam_medis' => $this->request->getVar('rm'),
             'id_pasien' => $this->request->getVar('nama_pasien'),
-            'keluhan' => $this->request->getVar('keluhan'),
+            'id_kunjungan' => $this->request->getVar('keluhan'),
             'anamnese/diagnosa' => $this->request->getVar('anamnese/diagnosa'),
             'id_poli' => $this->request->getVar('poli'),
             'id_dokter' => $this->request->getVar('nama_dokter'),
             'id_obat' => $Obatarr
-
         ]);
         if ($data) {
 

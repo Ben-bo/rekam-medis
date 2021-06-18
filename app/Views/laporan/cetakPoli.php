@@ -11,7 +11,10 @@
 </head>
 
 <body>
-
+    <?php if (session('hak_akses') !== 'admin' && session('hak_akses') !== 'rekam_medis') : ?>
+        <h1>Konten hanya bisa diakses oleh admin dan bagian rekam medis</h1>
+        <?php return 0 ?>
+    <?php endif ?>
     <div class="wrapper">
         <div class="row">
             <div class="col-2">

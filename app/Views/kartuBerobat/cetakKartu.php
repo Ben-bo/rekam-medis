@@ -13,6 +13,10 @@
 </head>
 
 <body class="d-flex justify-content-center">
+    <?php if (session('hak_akses') !== 'admin' && session('hak_akses') !== 'pendaftaran') : ?>
+        <h1>Konten hanya bisa diakses oleh admin dan bagian pendaftaran</h1>
+        <?php return 0 ?>
+    <?php endif ?>
     <div class="card mt-5" style="width: 35rem;">
         <div class="card-body">
             <div class="row">

@@ -1,5 +1,9 @@
 <?= $this->extend('layout/template') ?>
 <?= $this->section('content') ?>
+<?php if (session('hak_akses') !== 'admin') : ?>
+    <h1>Konten hanya bisa diakses oleh admin</h1>
+    <?php return 0 ?>
+<?php endif ?>
 <div id="konten">
     <div class="row">
         <div class="col-12">
@@ -9,9 +13,16 @@
                     <form action="/users/add_data/" method="post" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-6">
+                                <div class="mb-3" style="display: none;">
+                                    <label for="nama_users" class="form-label">Nama User</label>
+                                    <input type="text" class="form-control <?= ($validation->hasError('nama_users')) ? 'is-invalid' : ''; ?>" id="nama_users" name="nama_users" <?= ($validation->hasError('nama_users')) ? 'autofocus' : ''; ?> value="<?= old('nama_users'); ?>">
+                                    <div id="validationServer03Feedback" class="invalid-feedback">
+                                        <?= $validation->getError('nama_users'); ?>
+                                    </div>
+                                </div>
                                 <div class="mb-3">
                                     <label for="nama_users" class="form-label">Nama User</label>
-                                    <input type="text" class="form-control <?= ($validation->hasError('nama_users')) ? 'is-invalid' : ''; ?>" id="nama_users" name="nama_users" <?= ($validation->hasError('nama_users')) ? 'autofocus' : ''; ?> value="<?= old('nama_users'); ?>" required>
+                                    <input type="text" class="form-control <?= ($validation->hasError('nama_users')) ? 'is-invalid' : ''; ?>" id="nama_users" name="nama_users" <?= ($validation->hasError('nama_users')) ? 'autofocus' : ''; ?> value="<?= old('nama_users'); ?>">
                                     <div id="validationServer03Feedback" class="invalid-feedback">
                                         <?= $validation->getError('nama_users'); ?>
                                     </div>
@@ -29,11 +40,13 @@
                                         <?php if (old('hak_akses')) : ?>
                                             <option selected hidden value="<?= old('hak_akses') ?>"> <?= old('hak_akses') ?></option>
                                             <option value="admin">admin</option>
-                                            <option value="petugas_medis">Petugas Medis</option>
+                                            <option value="pendaftaran">Pendaftaran</option>
+                                            <option value="rekam_medis">Rekam Medis</option>
                                         <?php else : ?>
                                             <option selected hidden value=""> Pilih Jenis Kelamin</option>
                                             <option value="admin">admin</option>
-                                            <option value="petugas_medis">Petugas Medis</option>
+                                            <option value="pendaftaran">Pendaftaran</option>
+                                            <option value="rekam_medis">Rekam Medis</option>
                                         <?php endif ?>
                                     </select>
                                     <div id="validationServer03Feedback" class="invalid-feedback">
@@ -73,5 +86,5 @@
     </div>
 
 </div>
-</div>
+
 <?= $this->endSection() ?>
