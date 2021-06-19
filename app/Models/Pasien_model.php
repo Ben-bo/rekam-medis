@@ -23,9 +23,22 @@ class Pasien_model extends Model
         }
         return $this->where(['id_pasien' => $id_pasien])->first();
     }
+    public function filterPasien($tahun)
+    {
+        return $this->db->table('pasien')
+            ->where('YEAR(created_at_pasien)', $tahun)->get()->getResultArray();
+    }
+    public function insertImport($data)
+    {
+        return $this->insert($data);
+    }
     public function getNamaPasien($id_pasien)
     {
         return $this->where('id_pasien', $id_pasien)->first();
+    }
+    public function noRM()
+    {
+        return $this->orderBy('id_pasien', 'DESC')->limit(1)->get()->getRowObject();
     }
 
     function bulan($bulan)

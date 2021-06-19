@@ -23,6 +23,7 @@ class Pasien extends BaseController
         ];
         return view('pasien/data_pasien', $data);
     }
+
     public function detail($id_pasien)
     {
 
@@ -34,8 +35,16 @@ class Pasien extends BaseController
     }
     public function form_pasien()
     {
+        $noRM = $this->Pasien_model->noRM();
+        if ($noRM) {
+            $noRM = $noRM->id_pasien;
+            $noRM = intval($noRM) + 1;
+        } else {
+            $noRM = 1;
+        }
         session();
         $data = [
+            'noRM' => $noRM,
             'judul' => 'Pendaftaran Pasien',
             'validation' => \Config\Services::validation(),
 

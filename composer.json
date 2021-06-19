@@ -8,7 +8,8 @@
         "php": ">=7.2",
         "codeigniter4/framework": "^4",
         "dompdf/dompdf": "^1.0",
-        "ttskch/select2-bootstrap4-theme": "^1.5"
+        "ttskch/select2-bootstrap4-theme": "^1.5",
+        "phpoffice/phpspreadsheet": "^1.18"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.9@dev",

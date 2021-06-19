@@ -12,6 +12,12 @@
                     <h5 class="card-header mb-2 bg-success text-white">Form Pendaftaran Pasien</h5>
                     <form action="/pasien/add_data/" method="post">
                         <div class="row">
+                            <div class="col-12">
+                                <h4 class="text-center">No Rekam Medis : RM000<?= $noRM ?></h4>
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-6">
                                 <div class="mb-3">
                                     <label for="exampleFormControlInput1" class="form-label">Nama Pasien</label>

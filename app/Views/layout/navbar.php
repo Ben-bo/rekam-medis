@@ -4,6 +4,19 @@
             <nav class="navbar navbar-light bg-light shadow-sm ">
                 <div class="container-fluid ">
                     <h5>Klinik Kesehatan</h5>
+
+                    <span class="navbar-text">
+                        <li class="nav-item dropdown " style="list-style: none;">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user-injured"></i> Backup
+                            </a>
+                            <ul class="dropdown-menu shadow" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="/backup/pasienBackup/"><i class="fas fa-plus-square"></i> Export Pasien</a></li>
+                                <li><a class="dropdown-item" href="/backup/importPasien/"><i class="fas fa-plus-square"></i> Import Pasien</a></li>
+
+                            </ul>
+                        </li>
+                    </span>
                     <span class="navbar-text">
                         <li class="nav-item dropdown" style="list-style: none;">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
