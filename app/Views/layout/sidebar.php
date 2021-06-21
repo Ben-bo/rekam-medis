@@ -49,6 +49,18 @@
                             <li><a class="dropdown-item" href="/pasien/"><i class="fas fa-file-alt"></i> Data Pasien</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item dropdown ">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-injured"></i> Laporan
+                        </a>
+                        <ul class="dropdown-menu shadow" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/laporan/laporanPasien/"><i class="fas fa-plus-square"></i> Laporan Pasien</a></li>
+                            <li><a class="dropdown-item" href="/laporan/laporanPoli"><i class="fas fa-file-alt"></i> Laporan Poli</a></li>
+                            <li><a class="dropdown-item" href="/laporan/"><i class="fas fa-file-alt"></i> Laporan Kunjungan</a></li>
+                            <li><a class="dropdown-item" href="/backup/pasienBackup/"><i class="fas fa-plus-square"></i> Export Pasien</a></li>
+                            <li><a class="dropdown-item" href="/backup/importPasien/"><i class="fas fa-plus-square"></i> Import Pasien</a></li>
+                        </ul>
+                    </li>
                     <li class="nav-item">
                         <a href="/kunjungan/" class="nav-link"><i class="fas fa-file-medical-alt"></i> Kunjungan</a>
                     </li>
@@ -58,16 +70,7 @@
                     <li class="nav-item">
                         <a href="/resep/" class="nav-link"><i class="fas fa-receipt"></i> Resep</a>
                     </li>
-                    <li class="nav-item dropdown ">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-user-injured"></i> Laporan
-                        </a>
-                        <ul class="dropdown-menu shadow" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="/laporan/laporanPasien/"><i class="fas fa-plus-square"></i> Laporan Pasien</a></li>
-                            <li><a class="dropdown-item" href="/laporan/laporanPoli"><i class="fas fa-file-alt"></i> Laporan Poli</a></li>
-                            <li><a class="dropdown-item" href="/laporan/"><i class="fas fa-file-alt"></i> Laporan Kunjungan</a></li>
-                        </ul>
-                    </li>
+
                     <li class="nav-item">
                         <a href="/dokter/" class="nav-link"><i class="fas fa-user-nurse"></i> Data Dokter</a>
                     </li>

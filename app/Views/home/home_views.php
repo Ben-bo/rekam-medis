@@ -297,27 +297,6 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-6 col-lg-4 ">
-                <div class="mt-2 bg-light py-3 konten-card">
-                    <div class="row">
-                        <div class="col-4  text-muted">
-                            <div class="container-fluid">
-                                <a href="/obat/form_obat/">
-                                    <i class="fas fa-users fa-4x text-success"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-8">
-                            <div class="container-fluid">
-                                <a href="/backup">
-                                    <h4 class="">BackUp</h4>
-                                    <h6 class="text-muted">Backup data pasien</h6>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         <?php endif ?>
     </div>
 </div>
